@@ -15,82 +15,82 @@ const NAV_LINKS = [
 
 const SERVICES = [
   {
-    icon: "Home",
-    title: "Стандартная уборка",
-    desc: "Пылесос, мытьё полов, протирка поверхностей, санузел. Идеально для регулярного обслуживания.",
+    icon: "Sofa",
+    title: "Химчистка диванов",
+    desc: "Удаляем пятна, запахи и аллергены. Ткань, велюр, замша, кожа — работаем с любым материалом.",
     color: "#0cb8a0",
     badge: "Хит",
   },
   {
-    icon: "Sparkles",
-    title: "Генеральная уборка",
-    desc: "Полная глубокая чистка всего помещения: окна, плинтуса, кухня, мебель внутри и снаружи.",
+    icon: "ArmchairIcon",
+    title: "Химчистка кресел",
+    desc: "Офисные, обеденные, игровые кресла. Глубокая чистка без разборки, сушка за 2–4 часа.",
     color: "#c9a800",
     badge: null,
   },
   {
-    icon: "Building2",
-    title: "Уборка офисов",
-    desc: "Чистота рабочих пространств, переговорных, кухонь и санузлов. Работаем в нерабочее время.",
+    icon: "BedDouble",
+    title: "Химчистка матрасов",
+    desc: "Устраняем клещей, грибок, пятна и неприятные запахи. Безопасно для детей и аллергиков.",
     color: "#0cb8a0",
-    badge: null,
-  },
-  {
-    icon: "Package",
-    title: "Уборка после ремонта",
-    desc: "Удаляем строительную пыль, следы шпаклёвки, краски, клея. Готовим квартиру к заселению.",
-    color: "#c9a800",
     badge: "Популярно",
   },
   {
-    icon: "Sofa",
-    title: "Химчистка мебели",
-    desc: "Диваны, кресла, матрасы, ковры. Профессиональное оборудование и безопасные средства.",
+    icon: "LayoutGrid",
+    title: "Химчистка ковров",
+    desc: "Шерсть, синтетика, ковры ручной работы. Выездная чистка на дому или в нашем цеху.",
+    color: "#c9a800",
+    badge: null,
+  },
+  {
+    icon: "Armchair",
+    title: "Химчистка стульев",
+    desc: "Обеденные группы, барные стулья, пуфики. Быстро — один стул от 15 минут.",
     color: "#0cb8a0",
     badge: null,
   },
   {
-    icon: "Key",
-    title: "Уборка при выезде",
-    desc: "Возврат депозита гарантирован. Приводим арендованное жильё в идеальный вид.",
+    icon: "Car",
+    title: "Химчистка автосалона",
+    desc: "Сиденья, потолок, дверные панели. Профессиональное оборудование и безопасные средства.",
     color: "#c9a800",
     badge: null,
   },
 ];
 
 const STATS = [
-  { num: "5 000+", label: "довольных клиентов" },
+  { num: "3 000+", label: "предметов мебели" },
   { num: "8 лет", label: "на рынке" },
-  { num: "99%", label: "возврат клиентов" },
-  { num: "47 мин", label: "среднее время ответа" },
+  { num: "99%", label: "пятен выводим" },
+  { num: "2–4 ч", label: "время высыхания" },
 ];
 
 const REVIEWS = [
   {
     name: "Елена Морозова",
     role: "Владелица квартиры",
-    text: "Заказывала генеральную уборку после ремонта — результат превзошёл все ожидания! Ребята вычистили всё до блеска.",
+    text: "Диван-то думала уже не спасти — кот поработал знатно. После химчистки как новый! Запах ушёл полностью.",
     rating: 5,
     avatar: "ЕМ",
   },
   {
     name: "Дмитрий Козлов",
     role: "Руководитель офиса",
-    text: "Сотрудничаем уже два года. Приходят вечером, не мешают работе. Всегда аккуратно, всегда вовремя.",
+    text: "Заказывали химчистку всех кресел в переговорной. Приехали быстро, сделали аккуратно, к утру всё высохло.",
     rating: 5,
     avatar: "ДК",
   },
   {
     name: "Анастасия Петрова",
-    role: "Арендатор",
-    text: "Уборка при выезде — лучший выбор! Хозяин вернул депозит без вопросов. Работают быстро и качественно.",
+    role: "Молодая мама",
+    text: "Матрас для ребёнка — важно, чтобы без химии. Ребята объяснили всё про состав, сделали безопасно. Рекомендую!",
     rating: 5,
     avatar: "АП",
   },
   {
     name: "Михаил Волков",
-    role: "Владелец дома",
-    text: "Химчистка диванов просто чудо — думал, придётся выбрасывать. Теперь как новые! Приятно удивлён скоростью.",
+    role: "Владелец автомобиля",
+    text: "Чистили сиденья в BMW — результат на уровне автодилера. Цена в два раза ниже, а качество такое же.",
     rating: 5,
     avatar: "МВ",
   },
@@ -99,37 +99,37 @@ const REVIEWS = [
 const BLOG_POSTS = [
   {
     tag: "Советы",
-    title: "5 зон, которые чаще всего упускают при уборке",
+    title: "Как продлить жизнь дивану: 5 простых правил",
     date: "18 мая 2026",
     readTime: "3 мин",
-    emoji: "🧼",
+    emoji: "🛋️",
     bg: "#e0f7f4",
   },
   {
     tag: "Лайфхак",
-    title: "Как сохранить чистоту квартиры между уборками",
+    title: "Что делать сразу после того, как пролили на диван",
     date: "10 мая 2026",
     readTime: "4 мин",
-    emoji: "🌿",
+    emoji: "💧",
     bg: "#fffbe0",
   },
   {
     tag: "Рейтинг",
-    title: "Лучшие экологичные средства для уборки в 2026 году",
+    title: "Велюр, кожа или ткань: какую мебель легче чистить",
     date: "2 мая 2026",
     readTime: "5 мин",
-    emoji: "⭐",
+    emoji: "✨",
     bg: "#e0f7f4",
   },
 ];
 
 const GALLERY_ITEMS = [
-  { label: "Кухня до и после", tag: "Кухня", emoji: "🏠", ratio: "4/3" },
-  { label: "Ванная комната", tag: "Санузел", emoji: "🚿", ratio: "1/1" },
-  { label: "Гостиная", tag: "Зал", emoji: "🛋️", ratio: "1/1" },
-  { label: "Офис", tag: "Офис", emoji: "🏢", ratio: "4/3" },
-  { label: "Спальня", tag: "Спальня", emoji: "🛏️", ratio: "1/1" },
-  { label: "Балкон", tag: "Балкон", emoji: "🌿", ratio: "1/1" },
+  { label: "Диван до и после", tag: "Диван", emoji: "🛋️", ratio: "4/3" },
+  { label: "Кресло до и после", tag: "Кресло", emoji: "🪑", ratio: "1/1" },
+  { label: "Матрас до и после", tag: "Матрас", emoji: "🛏️", ratio: "1/1" },
+  { label: "Ковёр до и после", tag: "Ковёр", emoji: "🏡", ratio: "4/3" },
+  { label: "Автомобиль до и после", tag: "Авто", emoji: "🚗", ratio: "1/1" },
+  { label: "Стулья до и после", tag: "Стулья", emoji: "✨", ratio: "1/1" },
 ];
 
 const CLEANING_TYPES = [
@@ -195,7 +195,7 @@ function Navbar() {
             <Icon name="Phone" size={16} />
             8 800 123-45-67
           </a>
-          <button className="btn-primary px-5 py-2 text-sm">Заказать уборку</button>
+          <button className="btn-primary px-5 py-2 text-sm">Вызвать мастера</button>
         </div>
         <button className="lg:hidden p-2 rounded-lg" onClick={() => setOpen(!open)} style={{ color: "var(--dark)" }}>
           <Icon name={open ? "X" : "Menu"} size={24} />
@@ -206,7 +206,7 @@ function Navbar() {
           {NAV_LINKS.map((l) => (
             <a key={l.href} href={l.href} className="py-2 font-medium text-sm" style={{ color: "var(--dark)" }} onClick={() => setOpen(false)}>{l.label}</a>
           ))}
-          <button className="btn-primary px-5 py-2.5 mt-2 text-sm">Заказать уборку</button>
+          <button className="btn-primary px-5 py-2.5 mt-2 text-sm">Вызвать мастера</button>
         </div>
       )}
     </nav>
@@ -230,25 +230,25 @@ function Hero() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-7">
             <div className="animate-fade-up stagger-1">
-              <span className="section-tag">Клининговый сервис №1 в СПб</span>
+              <span className="section-tag">Химчистка мебели №1 в СПб</span>
             </div>
             <h1 className="font-oswald font-bold animate-fade-up stagger-2" style={{ fontSize: "clamp(2.5rem, 6vw, 4.5rem)", color: "var(--dark)", lineHeight: 1.1 }}>
-              Ваш дом заслуживает{" "}
+              Ваша мебель будет{" "}
               <span className="relative inline-block">
-                <span style={{ color: "var(--teal)" }}>идеальной</span>
+                <span style={{ color: "var(--teal)" }}>как новая</span>
                 <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
                   <path d="M2 9 Q50 2 100 8 Q150 14 198 6" stroke="#ffe227" strokeWidth="3.5" strokeLinecap="round" fill="none" />
                 </svg>
               </span>{" "}
-              чистоты
+              снова
             </h1>
             <p className="text-lg animate-fade-up stagger-3" style={{ color: "var(--gray)", maxWidth: 480 }}>
-              Профессиональная уборка квартир, офисов и домов. Сертифицированные специалисты, экологичные средства, гарантия результата.
+              Профессиональная химчистка диванов, кресел, матрасов и ковров. Выезд на дом, безопасные средства, сушка за 2–4 часа.
             </p>
             <div className="flex flex-wrap gap-4 animate-fade-up stagger-4">
               <button className="btn-primary px-8 py-3.5 text-base font-oswald flex items-center gap-2">
                 <Icon name="Calendar" size={18} />
-                Записаться онлайн
+                Вызвать мастера
               </button>
               <button className="btn-outline px-8 py-3.5 text-base font-oswald flex items-center gap-2">
                 <Icon name="Calculator" size={18} />
@@ -256,7 +256,7 @@ function Hero() {
               </button>
             </div>
             <div className="flex flex-wrap gap-5 pt-2 animate-fade-up stagger-5">
-              {["Гарантия 100%", "Без предоплаты", "Экологично"].map((t) => (
+              {["Гарантия 100%", "Без предоплаты", "Безопасно для детей"].map((t) => (
                 <div key={t} className="flex items-center gap-2 text-sm font-medium" style={{ color: "var(--gray)" }}>
                   <div className="w-5 h-5 rounded-full flex items-center justify-center" style={{ background: "var(--teal)" }}>
                     <Icon name="Check" size={11} className="text-white" />
@@ -309,7 +309,7 @@ function Hero() {
 }
 
 function Marquee() {
-  const items = ["Стандартная уборка", "Генеральная уборка", "Офисный клининг", "После ремонта", "Химчистка мебели", "Уборка при выезде"];
+  const items = ["Химчистка диванов", "Химчистка кресел", "Химчистка матрасов", "Чистка ковров", "Автохимчистка", "Удаление пятен"];
   const doubled = [...items, ...items];
   return (
     <div className="overflow-hidden py-4" style={{ background: "var(--teal)" }}>
@@ -333,10 +333,10 @@ function Services() {
         <div className="text-center mb-14">
           <span className={`section-tag ${inView ? "animate-fade-up" : "opacity-0"}`}>Наши услуги</span>
           <h2 className={`font-oswald font-bold mt-4 ${inView ? "animate-fade-up stagger-1" : "opacity-0"}`} style={{ fontSize: "clamp(2rem, 4vw, 3rem)", color: "var(--dark)" }}>
-            Всё для идеальной чистоты
+            Химчистка любой мебели с выездом
           </h2>
           <p className={`mt-3 text-base max-w-xl mx-auto ${inView ? "animate-fade-up stagger-2" : "opacity-0"}`} style={{ color: "var(--gray)" }}>
-            Комплексные клининговые решения для любых пространств
+            Работаем с диванами, креслами, матрасами, коврами и автомобилями
           </p>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -495,7 +495,7 @@ function About() {
           <div className={`relative ${inView ? "animate-fade-up" : "opacity-0"}`}>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-4">
-                <div className="rounded-2xl aspect-square flex items-center justify-center text-7xl" style={{ background: "var(--teal-light)" }}>🧹</div>
+                <div className="rounded-2xl aspect-square flex items-center justify-center text-7xl" style={{ background: "var(--teal-light)" }}>🛋️</div>
                 <div className="rounded-2xl p-5" style={{ background: "#ffe227" }}>
                   <div className="font-oswald font-bold text-3xl" style={{ color: "var(--dark)" }}>8+</div>
                   <div className="text-sm font-semibold mt-1" style={{ color: "var(--dark-2)" }}>лет на рынке</div>
@@ -503,8 +503,8 @@ function About() {
               </div>
               <div className="space-y-4 mt-8">
                 <div className="rounded-2xl p-5" style={{ background: "var(--teal)" }}>
-                  <div className="font-oswald font-bold text-3xl text-white">50+</div>
-                  <div className="text-sm font-semibold mt-1 text-white/80">сотрудников</div>
+                  <div className="font-oswald font-bold text-3xl text-white">20+</div>
+                  <div className="text-sm font-semibold mt-1 text-white/80">мастеров</div>
                 </div>
                 <div className="rounded-2xl aspect-video flex items-center justify-center text-5xl" style={{ background: "var(--teal-light)" }}>✨</div>
               </div>
@@ -513,16 +513,16 @@ function About() {
           <div className="space-y-5">
             <span className={`section-tag ${inView ? "animate-fade-up stagger-1" : "opacity-0"}`}>О компании</span>
             <h2 className={`font-oswald font-bold ${inView ? "animate-fade-up stagger-2" : "opacity-0"}`} style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)", color: "var(--dark)" }}>
-              Мы превращаем уборку в удовольствие
+              Возвращаем мебели первозданный вид
             </h2>
             <p className={`text-base leading-relaxed ${inView ? "animate-fade-up stagger-3" : "opacity-0"}`} style={{ color: "var(--gray)" }}>
-              С 2018 года помогаем жителям Санкт-Петербурга поддерживать чистоту. Наша команда — сертифицированные профессионалы, прошедшие строгий отбор и обучение.
+              С 2018 года специализируемся на химчистке мебели в Санкт-Петербурге. Профессиональное оборудование, безопасные средства и выезд в удобное для вас время.
             </p>
             <div className={`space-y-3 ${inView ? "animate-fade-up stagger-4" : "opacity-0"}`}>
               {[
-                { icon: "ShieldCheck", text: "Страхование ответственности на всех объектах" },
-                { icon: "Leaf", text: "Только экологически чистые средства" },
-                { icon: "Clock", text: "Работаем 7 дней в неделю, с 8:00 до 22:00" },
+                { icon: "ShieldCheck", text: "Страховая ответственность — возместим ущерб" },
+                { icon: "Leaf", text: "Гипоаллергенные средства, безопасны для детей" },
+                { icon: "Clock", text: "Выезд 7 дней в неделю, с 8:00 до 22:00" },
                 { icon: "Award", text: "Лауреат премии «Лучший клининг СПб 2025»" },
               ].map((item) => (
                 <div key={item.text} className="flex items-center gap-3">
@@ -664,10 +664,10 @@ function Contacts() {
           <div>
             <span className={`section-tag ${inView ? "animate-fade-up" : "opacity-0"}`}>Контакты</span>
             <h2 className={`font-oswald font-bold mt-4 ${inView ? "animate-fade-up stagger-1" : "opacity-0"}`} style={{ fontSize: "clamp(2rem, 4vw, 3rem)", color: "var(--dark)" }}>
-              Готовы навести порядок?
+              Вызвать мастера на дом
             </h2>
             <p className={`mt-3 mb-8 text-base ${inView ? "animate-fade-up stagger-2" : "opacity-0"}`} style={{ color: "var(--gray)" }}>
-              Позвоните или оставьте заявку — ответим в течение 15 минут и подберём удобное время.
+              Позвоните или оставьте заявку — ответим в течение 15 минут, приедем в удобное время.
             </p>
             <div className={`space-y-4 ${inView ? "animate-fade-up stagger-3" : "opacity-0"}`}>
               {[
