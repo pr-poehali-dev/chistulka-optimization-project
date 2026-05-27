@@ -747,7 +747,19 @@ function Footer() {
               </a>
             ))}
           </div>
-          <div className="text-sm" style={{ color: "rgba(255,255,255,0.3)" }}>© 2026 Чистотел</div>
+          <div className="flex items-center gap-3">
+            <div className="text-sm" style={{ color: "rgba(255,255,255,0.3)" }}>© 2026 Чистотел</div>
+            <a
+              href="https://max.ru/u/f9LHodD0cOIhDoRH_6LXfcSUOHBuL1Ox9Kjst5F3mN4736vAC4pXtz-GKzc"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full transition-all hover:opacity-80"
+              style={{ background: "rgba(12,184,160,0.15)", color: "var(--teal)", border: "1px solid rgba(12,184,160,0.3)" }}
+            >
+              <Icon name="MessageCircle" size={13} />
+              Написать в MAX
+            </a>
+          </div>
         </div>
       </div>
     </footer>
