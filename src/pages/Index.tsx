@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import Icon from "@/components/ui/icon";
+import CookieBanner from "@/components/CookieBanner";
 
 // ============ ДАННЫЕ ============
 
@@ -894,6 +895,7 @@ export default function Index() {
       <Blog />
       <Contacts />
       <Footer />
+      <CookieBanner />
     </div>
   );
 }
