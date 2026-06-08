@@ -1,137 +1,98 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Химчистка мебели в Краснодаре | Аренда Чистоты</title>
-    <meta name="description" content="Профессиональная химчистка диванов, кресел, матрасов, ковров в Краснодаре. Выезд на дом. ☎ 8 918 968-28-82">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; }
-        .header { background: linear-gradient(135deg, #0cb8a0 0%, #0a9c88 100%); color: white; padding: 20px; text-align: center; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        .hero { text-align: center; padding: 60px 20px; background: #f5f5f5; border-radius: 12px; margin-bottom: 40px; }
-        h1 { font-size: 48px; margin-bottom: 20px; color: #0cb8a0; }
-        .phone { font-size: 32px; font-weight: bold; margin: 20px 0; }
-        .phone a { color: #0cb8a0; text-decoration: none; }
-        .form-container { max-width: 500px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
-        input, textarea, select { width: 100%; padding: 12px; margin: 10px 0; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px; }
-        button { width: 100%; padding: 14px; background: #0cb8a0; color: white; border: none; border-radius: 8px; font-size: 18px; cursor: pointer; }
-        button:hover { background: #0a9c88; }
-        .message { margin-top: 20px; padding: 10px; border-radius: 8px; display: none; }
-        .success { background: #d4edda; color: #155724; display: block; }
-        .error { background: #f8d7da; color: #721c24; display: block; }
-        @media (max-width: 768px) {
-            h1 { font-size: 32px; }
-            .phone { font-size: 24px; }
-        }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <div class="container">
-            <h2>Аренда Чистоты</h2>
-            <p>Профессиональная химчистка мебели в Краснодаре</p>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="hero">
-            <h1>Химчистка мебели в Краснодаре</h1>
-            <p>Диваны | Кресла | Матрасы | Ковры | Автомобили</p>
-            <div class="phone">
-                <a href="tel:+79189682882">📞 8 (918) 968-28-82</a>
-            </div>
-            <p>✅ Выезд на дом ✅ Сушка 2-4 часа ✅ Безопасные средства</p>
-        </div>
-
-        <div class="form-container">
-            <h3 style="text-align: center; margin-bottom: 20px;">Оставить заявку</h3>
-            <form id="orderForm">
-                <input type="text" id="name" placeholder="Ваше имя *" required>
-                <input type="tel" id="phone" placeholder="Номер телефона *" required>
-                <select id="furniture" multiple size="3">
-                    <option value="Диван">Диван</option>
-                    <option value="Кресло">Кресло</option>
-                    <option value="Матрас">Матрас</option>
-                    <option value="Ковер">Ковер</option>
-                    <option value="Автомобиль">Автомобиль</option>
-                </select>
-                <small style="display: block; margin-top: -5px; color: #888;">Для выбора нескольких зажмите Ctrl</small>
-                <input type="text" id="time" placeholder="Удобное время звонка">
-                <textarea id="comment" rows="3" placeholder="Комментарий"></textarea>
-                <button type="submit" id="submitBtn">Отправить заявку</button>
-                <div id="message" class="message"></div>
-            </form>
-        </div>
-    </div>
-
-    <script>
-        const API_URL = 'https://functions.poehali.dev/e0c4663b-8df6-4eed-958d-8a57089eb58a';
-        
-        document.getElementById('orderForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const name = document.getElementById('name').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            const furnitureSelect = document.getElementById('furniture');
-            const furniture = Array.from(furnitureSelect.selectedOptions).map(opt => opt.value);
-            const time = document.getElementById('time').value.trim();
-            const comment = document.getElementById('comment').value.trim();
-            const messageDiv = document.getElementById('message');
-            const submitBtn = document.getElementById('submitBtn');
-            
-            if (!name || !phone) {
-                showMessage('Пожалуйста, заполните имя и телефон', 'error');
-                return;
-            }
-            
-            if (phone.replace(/\D/g, '').length < 10) {
-                showMessage('Пожалуйста, введите корректный номер телефона', 'error');
-                return;
-            }
-            
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Отправка...';
-            
-            try {
-                const response = await fetch(API_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, phone, furniture, time, comment })
-                });
-                
-                const data = await response.json();
-                
-                if (response.ok) {
-                    showMessage('✅ Заявка успешно отправлена! Мы свяжемся с вами.', 'success');
-                    document.getElementById('orderForm').reset();
-                    
-                    // Отправка в Яндекс.Метрику
-                    if (typeof ym !== 'undefined') {
-                        ym(101026698, 'reachGoal', 'form_submit');
-                    }
-                } else {
-                    throw new Error(data.error || 'Ошибка отправки');
-                }
-            } catch (error) {
-                showMessage('❌ Ошибка при отправке. Позвоните нам: 8 (918) 968-28-82', 'error');
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Отправить заявку';
-                setTimeout(() => {
-                    messageDiv.className = 'message';
-                    messageDiv.style.display = 'none';
-                }, 5000);
-            }
-        });
-        
-        function showMessage(text, type) {
-            const messageDiv = document.getElementById('message');
-            messageDiv.textContent = text;
-            messageDiv.className = `message ${type}`;
-            messageDiv.style.display = 'block';
-        }
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Химчистка мебели в Краснодаре — диваны, кресла, матрасы | Аренда Чистоты</title>
+    <meta name="description" content="Профессиональная химчистка диванов, кресел, матрасов, ковров и автомобилей в Краснодаре. Выезд на дом, безопасные средства, сушка за 2–4 часа. ☎ 8 918 968-28-82"/>
+    <meta name="keywords" content="химчистка мебели Краснодар, химчистка диванов Краснодар, химчистка матрасов, чистка ковров Краснодар, химчистка кресел, химчистка на дому Краснодар"/>
+    <meta name="geo.region" content="RU-KDA"/>
+    <meta name="geo.placename" content="Краснодар"/>
+    <link rel="canonical" href="https://arenda-chistoty.ru/"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;900&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="author" content="Аренда Чистоты"/>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta property="og:type" content="website"/>
+    <meta property="og:locale" content="ru_RU"/>
+    <meta property="og:url" content="https://arenda-chistoty.ru/"/>
+    <meta property="og:site_name" content="Аренда Чистоты"/>
+    <meta property="og:title" content="Химчистка мебели в Краснодаре — Аренда Чистоты">
+    <meta property="og:description" content="Химчистка диванов, кресел, матрасов и ковров в Краснодаре с выездом на дом. Сушка за 2–4 часа, безопасные средства. ☎ 8 918 968-28-82">
+    <meta property="og:image" content="https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/files/a08ceb1c-d0eb-4d93-9fdc-05ba95070e28.jpg">
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:title" content="Химчистка мебели в Краснодаре — Аренда Чистоты"/>
+    <meta name="twitter:description" content="Химчистка диванов, кресел, матрасов и ковров с выездом на дом. Сушка за 2–4 часа."/>
+    <meta name="twitter:image" content="https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/files/a08ceb1c-d0eb-4d93-9fdc-05ba95070e28.jpg">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Аренда Чистоты",
+      "description": "Профессиональная химчистка мебели, диванов, кресел, матрасов и ковров в Краснодаре с выездом на дом.",
+      "image": "https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/files/a08ceb1c-d0eb-4d93-9fdc-05ba95070e28.jpg",
+      "telephone": "+79189682882",
+      "url": "https://arenda-chistoty.ru/",
+      "priceRange": "₽₽",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Краснодар",
+        "addressRegion": "Краснодарский край",
+        "addressCountry": "RU"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Краснодар"
+      },
+      "openingHours": "Mo-Su 09:00-22:00"
+    }
     </script>
+
+    <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS COMMENT! -->
+
+    <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS COMMENT! -->
+    <script src="https://cdn.poehali.dev/intertnal/js/pp-min-2.js"></script>
+    <script src="https://cdn.poehali.dev/intertnal/js/route-min.js"></script>
+    <script src="https://cdn.poehali.dev/intertnal/js/telemetry-min.js"></script>
+    <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS COMMENT! -->
+
+    <meta name="pp-name" value="chistulka-optimization-project">
+      <script src="https://cdn.poehali.dev/intertnal/js/inspector-min.js"></script>
+  </head>
+
+<body>
+<div id="root"></div>
+<script type="module" src="/src/main.tsx"></script>
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function (m, e, t, r, i, k, a) {
+        m[i] = m[i] || function () {
+            (m[i].a = m[i].a || []).push(arguments)
+        };
+        m[i].l = 1 * new Date();
+        for (var j = 0; j < document.scripts.length; j++) {
+            if (document.scripts[j].src === r) {
+                return;
+            }
+        }
+        k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+    })
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    ym(101026698, "init", {
+        trustedDomains: ["poehali.dev"],
+        clickmap: true,
+        trackLinks: true,
+        accurateTrackBounce: true,
+        webvisor: true,
+        trackHash: true
+    });
+</script>
+<noscript>
+    <div><img src="https://mc.yandex.ru/watch/101026698" style="position:absolute; left:-9999px;" alt=""/></div>
+</noscript>
+<!-- /Yandex.Metrika counter -->
 </body>
 </html>
