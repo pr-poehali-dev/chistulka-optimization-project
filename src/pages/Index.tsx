@@ -842,21 +842,28 @@ function Contacts() {
             </p>
             <div className={`space-y-4 ${inView ? "animate-fade-up stagger-3" : "opacity-0"}`}>
               {[
-                { icon: "Phone", label: "Телефон", value: "8 918 968-28-82", sub: "Звонки и WhatsApp" },
-                { icon: "MessageCircle", label: "WhatsApp / Telegram", value: "+7 918 968-28-82", sub: "Онлайн 9:00–22:00" },
-                { icon: "MapPin", label: "Адрес", value: "Краснодар", sub: "Работаем по всему городу и краю" },
-              ].map((c) => (
-                <div key={c.label} className="flex items-center gap-4 p-4 rounded-2xl hover-lift cursor-pointer" style={{ border: "1px solid var(--border)" }}>
-                  <div className="w-11 h-11 rounded-xl flex items-center justify-center" style={{ background: "var(--teal-light)" }}>
-                    <Icon name={c.icon} size={20} style={{ color: "var(--teal)" }} />
-                  </div>
-                  <div>
-                    <div className="text-xs font-semibold mb-0.5" style={{ color: "var(--gray)" }}>{c.label}</div>
-                    <div className="font-semibold text-sm" style={{ color: "var(--dark)" }}>{c.value}</div>
-                    <div className="text-xs" style={{ color: "var(--gray)" }}>{c.sub}</div>
-                  </div>
-                </div>
-              ))}
+                { icon: "Phone", label: "Телефон", value: "8 918 968-28-82", sub: "Звоните в любое время", link: "tel:+79189682882" },
+                { icon: "MessageCircle", label: "MAX", value: "Написать в MAX", sub: "Онлайн 9:00–22:00", link: "https://max.ru/u/f9LHodD0cOIhDoRH_6LXfcSUOHBuL1Ox9Kjst5F3mN4736vAC4pXtz-GKzc" },
+                { icon: "MapPin", label: "Адрес", value: "Краснодар", sub: "Работаем по всему городу и краю", link: null },
+              ].map((c) => {
+                const Tag = c.link ? "a" : "div";
+                return (
+                  <Tag
+                    key={c.label}
+                    {...(c.link ? { href: c.link, target: c.link.startsWith("http") ? "_blank" : undefined, rel: "noopener noreferrer" } : {})}
+                    className="flex items-center gap-4 p-4 rounded-2xl hover-lift cursor-pointer" style={{ border: "1px solid var(--border)" }}
+                  >
+                    <div className="w-11 h-11 rounded-xl flex items-center justify-center" style={{ background: "var(--teal-light)" }}>
+                      <Icon name={c.icon} size={20} style={{ color: "var(--teal)" }} />
+                    </div>
+                    <div>
+                      <div className="text-xs font-semibold mb-0.5" style={{ color: "var(--gray)" }}>{c.label}</div>
+                      <div className="font-semibold text-sm" style={{ color: "var(--dark)" }}>{c.value}</div>
+                      <div className="text-xs" style={{ color: "var(--gray)" }}>{c.sub}</div>
+                    </div>
+                  </Tag>
+                );
+              })}
             </div>
           </div>
 
