@@ -249,7 +249,7 @@ function Hero() {
               снова
             </h1>
             <p className="text-lg animate-fade-up stagger-3" style={{ color: "var(--gray)", maxWidth: 480 }}>
-              Профессиональная химчистка диванов, кресел, матрасов и ковров. Выезд на дом, безопасные средства, сушка за 2–4 часа.
+              Профессиональная химчистка диванов, кресел, матрасов и ковров в Краснодаре. Выезд на дом, безопасные средства, сушка за 2–4 часа.
             </p>
             <div className="flex flex-wrap gap-4 animate-fade-up stagger-4">
               <button className="btn-primary px-8 py-3.5 text-base font-oswald flex items-center gap-2">
@@ -534,14 +534,14 @@ function About() {
               Возвращаем мебели первозданный вид
             </h2>
             <p className={`text-base leading-relaxed ${inView ? "animate-fade-up stagger-3" : "opacity-0"}`} style={{ color: "var(--gray)" }}>
-              С 2018 года специализируемся на химчистке мебели в Санкт-Петербурге. Профессиональное оборудование, безопасные средства и выезд в удобное для вас время.
+              С 2016 года специализируемся на химчистке мебели в Краснодаре. Профессиональное оборудование, безопасные средства и выезд в удобное для вас время.
             </p>
             <div className={`space-y-3 ${inView ? "animate-fade-up stagger-4" : "opacity-0"}`}>
               {[
                 { icon: "ShieldCheck", text: "Страховая ответственность — возместим ущерб" },
                 { icon: "Leaf", text: "Гипоаллергенные средства, безопасны для детей" },
                 { icon: "Clock", text: "Выезд 7 дней в неделю, с 8:00 до 22:00" },
-                { icon: "Award", text: "Лауреат премии «Лучший клининг СПб 2025»" },
+                { icon: "Award", text: "Лауреат премии «Лучший клининг Краснодара 2025»" },
               ].map((item) => (
                 <div key={item.text} className="flex items-center gap-3">
                   <div className="w-9 h-9 rounded-xl flex-shrink-0 flex items-center justify-center" style={{ background: "var(--teal-light)" }}>
@@ -820,7 +820,7 @@ function Contacts() {
               {[
                 { icon: "Phone", label: "Телефон", value: "8 918 968-28-82", sub: "Звонки и WhatsApp" },
                 { icon: "MessageCircle", label: "WhatsApp / Telegram", value: "+7 918 968-28-82", sub: "Онлайн 9:00–22:00" },
-                { icon: "MapPin", label: "Адрес", value: "Санкт-Петербург", sub: "Работаем по всему городу" },
+                { icon: "MapPin", label: "Адрес", value: "Краснодар", sub: "Работаем по всему городу и краю" },
               ].map((c) => (
                 <div key={c.label} className="flex items-center gap-4 p-4 rounded-2xl hover-lift cursor-pointer" style={{ border: "1px solid var(--border)" }}>
                   <div className="w-11 h-11 rounded-xl flex items-center justify-center" style={{ background: "var(--teal-light)" }}>
