@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import Icon from "@/components/ui/icon";
 import CookieBanner from "@/components/CookieBanner";
+import { BLOG_POSTS } from "@/data/blog";
 
 // ============ УТИЛИТЫ ============
 
@@ -106,30 +108,6 @@ const REVIEWS = [
     text: "Чистили сиденья в BMW — результат на уровне автодилера. Цена в два раза ниже, а качество такое же.",
     rating: 5,
     avatar: "МВ",
-  },
-];
-
-const BLOG_POSTS = [
-  {
-    tag: "Советы",
-    title: "Как продлить жизнь дивану: 5 простых правил",
-    date: "18 мая 2026",
-    readTime: "3 мин",
-    img: "https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/files/732bbc08-719c-44c8-800e-9c68b5d80afa.jpg",
-  },
-  {
-    tag: "Лайфхак",
-    title: "Что делать сразу после того, как пролили на диван",
-    date: "10 мая 2026",
-    readTime: "4 мин",
-    img: "https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/files/d8dd0c6f-e2d1-4dd0-a43f-71dd963f3e2a.jpg",
-  },
-  {
-    tag: "Рейтинг",
-    title: "Велюр, кожа или ткань: какую мебель легче чистить",
-    date: "2 мая 2026",
-    readTime: "5 мин",
-    img: "https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/files/bc199042-d11e-49eb-9a5d-bc128d582074.jpg",
   },
 ];
 
@@ -692,7 +670,7 @@ function Blog() {
         </div>
         <div className="grid md:grid-cols-3 gap-6">
           {BLOG_POSTS.map((post, i) => (
-            <div key={post.title} onClick={() => scrollToId("contacts")} className={`card-clean overflow-hidden cursor-pointer group ${inView ? `animate-fade-up stagger-${i + 3}` : "opacity-0"}`}>
+            <Link to={`/blog/${post.slug}`} key={post.slug} className={`card-clean overflow-hidden cursor-pointer group block ${inView ? `animate-fade-up stagger-${i + 3}` : "opacity-0"}`}>
               <div className="h-40 overflow-hidden">
                 <img
                   src={post.img}
@@ -709,12 +687,12 @@ function Blog() {
                 <h3 className="font-oswald font-bold text-base leading-snug mb-3" style={{ color: "var(--dark)" }}>{post.title}</h3>
                 <div className="flex items-center justify-between">
                   <span className="text-xs" style={{ color: "var(--gray)" }}>{post.date}</span>
-                  <button className="flex items-center gap-1 text-xs font-semibold" style={{ color: "var(--teal)" }}>
+                  <span className="flex items-center gap-1 text-xs font-semibold transition-all group-hover:gap-2" style={{ color: "var(--teal)" }}>
                     Читать <Icon name="ArrowRight" size={13} />
-                  </button>
+                  </span>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
