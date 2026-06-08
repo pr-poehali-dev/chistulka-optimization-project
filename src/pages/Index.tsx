@@ -133,16 +133,16 @@ const GALLERY_ITEMS = [
 ];
 
 const FURNITURE_ITEMS = [
-  { id: "sofa_2", label: "Диван 2-местный", emoji: "🛋️", price: 2500 },
-  { id: "sofa_3", label: "Диван 3-местный", emoji: "🛋️", price: 3500 },
-  { id: "sofa_corner", label: "Угловой диван", emoji: "🛋️", price: 4500 },
-  { id: "chair", label: "Кресло", emoji: "🪑", price: 1500 },
-  { id: "mattress_s", label: "Матрас 1-спальный", emoji: "🛏️", price: 2000 },
-  { id: "mattress_d", label: "Матрас 2-спальный", emoji: "🛏️", price: 2800 },
-  { id: "carpet_s", label: "Ковёр до 6 м²", emoji: "🏡", price: 1800 },
-  { id: "carpet_l", label: "Ковёр от 6 м²", emoji: "🏡", price: 2800 },
-  { id: "car_seat", label: "Авто (салон)", emoji: "🚗", price: 3500 },
-  { id: "dining_chair", label: "Стул обеденный", emoji: "🪑", price: 600 },
+  { id: "sofa_2", label: "Диван 2-местный", emoji: "🛋️", price: 3500 },
+  { id: "sofa_3", label: "Диван 3-местный", emoji: "🛋️", price: 4500 },
+  { id: "sofa_corner", label: "Угловой диван", emoji: "🛋️", price: 5500 },
+  { id: "chair", label: "Кресло", emoji: "🪑", price: 2500 },
+  { id: "mattress_s", label: "Матрас 1-спальный", emoji: "🛏️", price: 3000 },
+  { id: "mattress_d", label: "Матрас 2-спальный", emoji: "🛏️", price: 3800 },
+  { id: "carpet_s", label: "Ковёр до 6 м²", emoji: "🏡", price: 2800 },
+  { id: "carpet_l", label: "Ковёр от 6 м²", emoji: "🏡", price: 3800 },
+  { id: "car_seat", label: "Авто (салон)", emoji: "🚗", price: 4500 },
+  { id: "dining_chair", label: "Стул обеденный", emoji: "🪑", price: 1600 },
 ];
 
 const EXTRA_OPTIONS = [
