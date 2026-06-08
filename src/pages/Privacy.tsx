@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Icon from "@/components/ui/icon";
+import Seo from "@/components/Seo";
 
 const SECTIONS = [
   {
@@ -35,6 +36,11 @@ const SECTIONS = [
 export default function Privacy() {
   return (
     <div className="min-h-screen" style={{ background: "var(--light-bg)" }}>
+      <Seo
+        title="Политика конфиденциальности | Аренда Чистоты"
+        description="Политика обработки персональных данных сайта arenda-chistoty.ru — химчистка мебели в Краснодаре."
+        path="/privacy"
+      />
       <header className="border-b bg-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 py-5 flex items-center justify-between">
           <Link to="/" className="flex items-center">

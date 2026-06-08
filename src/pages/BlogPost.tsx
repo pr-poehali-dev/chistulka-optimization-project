@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import Icon from "@/components/ui/icon";
+import Seo from "@/components/Seo";
 import { getPostBySlug, BLOG_POSTS } from "@/data/blog";
 
 export default function BlogPost() {
@@ -26,8 +27,35 @@ export default function BlogPost() {
 
   const other = BLOG_POSTS.filter((p) => p.slug !== post.slug).slice(0, 2);
 
+  const articleLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.excerpt,
+    image: post.img,
+    datePublished: post.date,
+    author: { "@type": "Organization", name: "Аренда Чистоты" },
+    publisher: {
+      "@type": "Organization",
+      name: "Аренда Чистоты",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/bucket/b6cb14ab-4c2a-4c89-a582-9b46d4e0a360.jpg",
+      },
+    },
+    mainEntityOfPage: `https://arenda-chistoty.ru/blog/${post.slug}`,
+  };
+
   return (
     <div className="min-h-screen" style={{ background: "var(--light-bg)" }}>
+      <Seo
+        title={`${post.title} | Блог «Аренда Чистоты»`}
+        description={post.excerpt}
+        path={`/blog/${post.slug}`}
+        image={post.img}
+        type="article"
+        jsonLd={articleLd}
+      />
       <header className="border-b bg-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 py-5 flex items-center justify-between">
           <Link to="/" className="flex items-center">
