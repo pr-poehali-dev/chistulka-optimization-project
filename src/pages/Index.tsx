@@ -513,18 +513,43 @@ function About() {
           <div className={`relative ${inView ? "animate-fade-up" : "opacity-0"}`}>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-4">
-                <div className="rounded-2xl aspect-square flex items-center justify-center text-7xl" style={{ background: "var(--teal-light)" }}>🛋️</div>
+                <div className="rounded-2xl overflow-hidden aspect-[3/4] shadow-lg">
+                  <img
+                    src="https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/files/d094ad5b-a76b-4a14-ad88-7d73d2d3a774.jpg"
+                    alt="Химчистка дивана на дому в Краснодаре"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
                 <div className="rounded-2xl p-5" style={{ background: "#ffe227" }}>
-                  <div className="font-oswald font-bold text-3xl" style={{ color: "var(--dark)" }}>8+</div>
+                  <div className="font-oswald font-bold text-3xl" style={{ color: "var(--dark)" }}>10+</div>
                   <div className="text-sm font-semibold mt-1" style={{ color: "var(--dark-2)" }}>лет на рынке</div>
                 </div>
               </div>
               <div className="space-y-4 mt-8">
                 <div className="rounded-2xl p-5" style={{ background: "var(--teal)" }}>
                   <div className="font-oswald font-bold text-3xl text-white">20+</div>
-                  <div className="text-sm font-semibold mt-1 text-white/80">мастеров</div>
+                  <div className="text-sm font-semibold mt-1 text-white/80">мастеров в штате</div>
                 </div>
-                <div className="rounded-2xl aspect-video flex items-center justify-center text-5xl" style={{ background: "var(--teal-light)" }}>✨</div>
+                <div className="rounded-2xl overflow-hidden aspect-[3/4] shadow-lg">
+                  <img
+                    src="https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/files/4aefd336-06ed-4dc6-84f8-86b03f8805e9.jpg"
+                    alt="Химчистка матраса"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-white rounded-2xl shadow-xl px-5 py-3 flex items-center gap-3 whitespace-nowrap" style={{ border: "1px solid var(--border)" }}>
+              <div className="flex -space-x-2">
+                {["А", "М", "К"].map((l) => (
+                  <div key={l} className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white border-2 border-white" style={{ background: "var(--teal)" }}>{l}</div>
+                ))}
+              </div>
+              <div>
+                <div className="font-oswald font-bold text-sm" style={{ color: "var(--dark)" }}>3 000+ заказов</div>
+                <div className="text-xs" style={{ color: "var(--gray)" }}>довольных клиентов</div>
               </div>
             </div>
           </div>
