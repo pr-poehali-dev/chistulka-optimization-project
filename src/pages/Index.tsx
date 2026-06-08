@@ -241,14 +241,13 @@ function Hero() {
               <span className="section-tag">Аренда Чистоты — химчистка мебели</span>
             </div>
             <h1 className="font-oswald font-bold animate-fade-up stagger-2" style={{ fontSize: "clamp(2.5rem, 6vw, 4.5rem)", color: "var(--dark)", lineHeight: 1.1 }}>
-              Ваша мебель будет{" "}
+              Химчистка мебели{" "}
               <span className="relative inline-block">
-                <span style={{ color: "var(--teal)" }}>как новая</span>
+                <span style={{ color: "var(--teal)" }}>в Краснодаре</span>
                 <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
                   <path d="M2 9 Q50 2 100 8 Q150 14 198 6" stroke="#ffe227" strokeWidth="3.5" strokeLinecap="round" fill="none" />
                 </svg>
-              </span>{" "}
-              снова
+              </span>
             </h1>
             <p className="text-lg animate-fade-up stagger-3" style={{ color: "var(--gray)", maxWidth: 480 }}>
               Профессиональная химчистка диванов, кресел, матрасов и ковров в Краснодаре. Выезд на дом, безопасные средства, сушка за 2–4 часа.
