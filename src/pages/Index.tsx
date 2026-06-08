@@ -2,6 +2,13 @@ import { useState, useEffect, useRef } from "react";
 import Icon from "@/components/ui/icon";
 import CookieBanner from "@/components/CookieBanner";
 
+// ============ УТИЛИТЫ ============
+
+const scrollToId = (id: string) => {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+};
+
 // ============ ДАННЫЕ ============
 
 const NAV_LINKS = [
@@ -203,7 +210,7 @@ function Navbar() {
             <Icon name="Phone" size={16} />
             8 918 968-28-82
           </a>
-          <button className="btn-primary px-5 py-2 text-sm">Вызвать мастера</button>
+          <button onClick={() => scrollToId("contacts")} className="btn-primary px-5 py-2 text-sm">Вызвать мастера</button>
         </div>
         <button className="lg:hidden p-2 rounded-lg" onClick={() => setOpen(!open)} style={{ color: "var(--dark)" }}>
           <Icon name={open ? "X" : "Menu"} size={24} />
@@ -214,7 +221,7 @@ function Navbar() {
           {NAV_LINKS.map((l) => (
             <a key={l.href} href={l.href} className="py-2 font-medium text-sm" style={{ color: "var(--dark)" }} onClick={() => setOpen(false)}>{l.label}</a>
           ))}
-          <button className="btn-primary px-5 py-2.5 mt-2 text-sm">Вызвать мастера</button>
+          <button onClick={() => { setOpen(false); scrollToId("contacts"); }} className="btn-primary px-5 py-2.5 mt-2 text-sm">Вызвать мастера</button>
         </div>
       )}
     </nav>
@@ -253,11 +260,11 @@ function Hero() {
               Профессиональная химчистка диванов, кресел, матрасов и ковров в Краснодаре. Выезд на дом, безопасные средства, сушка за 2–4 часа.
             </p>
             <div className="flex flex-wrap gap-4 animate-fade-up stagger-4">
-              <button className="btn-primary px-8 py-3.5 text-base font-oswald flex items-center gap-2">
+              <button onClick={() => scrollToId("contacts")} className="btn-primary px-8 py-3.5 text-base font-oswald flex items-center gap-2">
                 <Icon name="Calendar" size={18} />
                 Вызвать мастера
               </button>
-              <button className="btn-outline px-8 py-3.5 text-base font-oswald flex items-center gap-2">
+              <button onClick={() => scrollToId("prices")} className="btn-outline px-8 py-3.5 text-base font-oswald flex items-center gap-2">
                 <Icon name="Calculator" size={18} />
                 Рассчитать цену
               </button>
@@ -368,7 +375,7 @@ function Services() {
               <div className="p-6 pt-7">
                 <h3 className="font-oswald font-bold text-lg mb-2" style={{ color: "var(--dark)" }}>{s.title}</h3>
                 <p className="text-sm leading-relaxed" style={{ color: "var(--gray)" }}>{s.desc}</p>
-                <button className="mt-4 flex items-center gap-1.5 text-sm font-semibold transition-all hover:gap-3" style={{ color: "var(--teal)" }}>
+                <button onClick={() => scrollToId("contacts")} className="mt-4 flex items-center gap-1.5 text-sm font-semibold transition-all hover:gap-3" style={{ color: "var(--teal)" }}>
                   Подробнее <Icon name="ArrowRight" size={15} />
                 </button>
               </div>
@@ -496,11 +503,11 @@ function Calculator() {
                 </div>
               </div>
 
-              <button className="w-full btn-primary py-3.5 font-oswald font-semibold text-base flex items-center justify-center gap-2 disabled:opacity-40" disabled={!hasItems}>
+              <button onClick={() => scrollToId("contacts")} className="w-full btn-primary py-3.5 font-oswald font-semibold text-base flex items-center justify-center gap-2 disabled:opacity-40" disabled={!hasItems}>
                 <Icon name="Calendar" size={18} />
                 {hasItems ? `Заказать за ${total.toLocaleString("ru")} ₽` : "Выберите мебель"}
               </button>
-              <button className="w-full py-3 rounded-full text-sm font-semibold transition-all hover:bg-gray-50" style={{ color: "var(--gray)", border: "1px solid #e5e7eb" }}>
+              <button onClick={() => scrollToId("contacts")} className="w-full py-3 rounded-full text-sm font-semibold transition-all hover:bg-gray-50" style={{ color: "var(--gray)", border: "1px solid #e5e7eb" }}>
                 Обсудить условия
               </button>
               <div className="flex items-center gap-2 p-3 rounded-xl" style={{ background: "#fffbe0" }}>
@@ -679,13 +686,13 @@ function Blog() {
               Советы по чистоте
             </h2>
           </div>
-          <button className={`btn-outline px-6 py-2 text-sm font-oswald ${inView ? "animate-fade-up stagger-2" : "opacity-0"}`}>
-            Все статьи
+          <button onClick={() => scrollToId("contacts")} className={`btn-outline px-6 py-2 text-sm font-oswald ${inView ? "animate-fade-up stagger-2" : "opacity-0"}`}>
+            Задать вопрос
           </button>
         </div>
         <div className="grid md:grid-cols-3 gap-6">
           {BLOG_POSTS.map((post, i) => (
-            <div key={post.title} className={`card-clean overflow-hidden cursor-pointer group ${inView ? `animate-fade-up stagger-${i + 3}` : "opacity-0"}`}>
+            <div key={post.title} onClick={() => scrollToId("contacts")} className={`card-clean overflow-hidden cursor-pointer group ${inView ? `animate-fade-up stagger-${i + 3}` : "opacity-0"}`}>
               <div className="h-40 overflow-hidden">
                 <img
                   src={post.img}
