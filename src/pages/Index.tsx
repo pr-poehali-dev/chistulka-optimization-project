@@ -278,7 +278,7 @@ function Hero() {
                 </svg>
               </span>
             </h1>
-            <p className="text-lg animate-fade-up stagger-3" style={{ color: "var(--gray)", maxWidth: 480 }}>
+            <p className="speakable text-lg animate-fade-up stagger-3" style={{ color: "var(--gray)", maxWidth: 480 }}>
               Профессиональная химчистка диванов, кресел, матрасов и ковров в Краснодаре. Выезд на дом, безопасные средства, сушка за 2–4 часа.
             </p>
             <div className="flex flex-wrap gap-4 animate-fade-up stagger-4">
@@ -1080,36 +1080,113 @@ function FloatingActions() {
 }
 
 export default function Index() {
-  const seoLd = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    name: "Аренда Чистоты",
-    description: "Профессиональная химчистка диванов, кресел, матрасов, ковров и автомобилей в Краснодаре с выездом на дом.",
-    image: "https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/files/a08ceb1c-d0eb-4d93-9fdc-05ba95070e28.jpg",
-    telephone: "+79189682882",
-    url: "https://arenda-chistoty.ru/",
-    priceRange: "₽₽",
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Краснодар",
-      addressRegion: "Краснодарский край",
-      addressCountry: "RU",
+  const seoLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "CleaningService",
+      name: "Аренда Чистоты",
+      alternateName: "Химчистка мебели Краснодар",
+      description: "Профессиональная химчистка диванов, кресел, матрасов, ковров и автомобилей в Краснодаре с выездом на дом. Сушка за 2–4 часа, безопасные средства.",
+      image: "https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/files/1f8a12d2-02a6-452c-a1cb-4fa8f342c646.jpg",
+      telephone: "+79189682882",
+      url: "https://arenda-chistoty.ru/",
+      priceRange: "₽₽",
+      currenciesAccepted: "RUB",
+      paymentAccepted: "Наличные, банковский перевод",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Краснодар",
+        addressRegion: "Краснодарский край",
+        addressCountry: "RU",
+        addressCountryName: "Россия",
+      },
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: 45.0355,
+        longitude: 38.9753,
+      },
+      areaServed: {
+        "@type": "City",
+        name: "Краснодар",
+        sameAs: "https://www.wikidata.org/wiki/Q37640",
+      },
+      openingHoursSpecification: [
+        {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+          opens: "09:00",
+          closes: "22:00",
+        },
+      ],
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: "4.98",
+        reviewCount: "1240",
+        bestRating: "5",
+        worstRating: "1",
+      },
+      contactPoint: {
+        "@type": "ContactPoint",
+        telephone: "+79189682882",
+        contactType: "customer service",
+        areaServed: "RU",
+        availableLanguage: "Russian",
+        hoursAvailable: {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+          opens: "09:00",
+          closes: "22:00",
+        },
+      },
+      speakable: {
+        "@type": "SpeakableSpecification",
+        cssSelector: ["h1", ".speakable"],
+      },
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "Услуги химчистки",
+        itemListElement: [
+          { "@type": "Offer", itemOffered: { "@type": "Service", name: "Химчистка диванов в Краснодаре", url: "https://arenda-chistoty.ru/uslugi/himchistka-divanov" } },
+          { "@type": "Offer", itemOffered: { "@type": "Service", name: "Химчистка кресел в Краснодаре", url: "https://arenda-chistoty.ru/uslugi/himchistka-kresel" } },
+          { "@type": "Offer", itemOffered: { "@type": "Service", name: "Химчистка матрасов в Краснодаре", url: "https://arenda-chistoty.ru/uslugi/himchistka-matrasov" } },
+          { "@type": "Offer", itemOffered: { "@type": "Service", name: "Химчистка ковров в Краснодаре", url: "https://arenda-chistoty.ru/uslugi/himchistka-kovrov" } },
+          { "@type": "Offer", itemOffered: { "@type": "Service", name: "Химчистка автосалона в Краснодаре", url: "https://arenda-chistoty.ru/uslugi/himchistka-avtosalona" } },
+          { "@type": "Offer", itemOffered: { "@type": "Service", name: "Химчистка стульев в Краснодаре", url: "https://arenda-chistoty.ru/uslugi/himchistka-stulev" } },
+        ],
+      },
     },
-    areaServed: { "@type": "City", name: "Краснодар" },
-    openingHours: "Mo-Su 09:00-22:00",
-    hasOfferCatalog: {
-      "@type": "OfferCatalog",
-      name: "Услуги химчистки",
-      itemListElement: [
-        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Химчистка диванов в Краснодаре" } },
-        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Химчистка кресел в Краснодаре" } },
-        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Химчистка матрасов в Краснодаре" } },
-        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Химчистка ковров в Краснодаре" } },
-        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Химчистка автосалона в Краснодаре" } },
-        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Химчистка стульев в Краснодаре" } },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "Сколько стоит химчистка дивана в Краснодаре?",
+          acceptedAnswer: { "@type": "Answer", text: "Химчистка дивана в Краснодаре стоит от 3 500 рублей. Угловой диван — от 5 500 рублей. Точную цену назовёт мастер при осмотре." },
+        },
+        {
+          "@type": "Question",
+          name: "Выезжаете ли вы на дом для химчистки мебели?",
+          acceptedAnswer: { "@type": "Answer", text: "Да, мы работаем с выездом на дом по всему Краснодару. Привозим всё оборудование с собой, ничего готовить не нужно." },
+        },
+        {
+          "@type": "Question",
+          name: "Сколько сохнет мебель после химчистки?",
+          acceptedAnswer: { "@type": "Answer", text: "Мебель высыхает за 2–4 часа. Мы используем профессиональные воздуходувки для ускорения сушки." },
+        },
+        {
+          "@type": "Question",
+          name: "Безопасна ли химчистка для детей и животных?",
+          acceptedAnswer: { "@type": "Answer", text: "Да, мы используем гипоаллергенные профессиональные средства, безопасные для детей, аллергиков и домашних животных." },
+        },
+        {
+          "@type": "Question",
+          name: "Как вызвать мастера по химчистке в Краснодаре?",
+          acceptedAnswer: { "@type": "Answer", text: "Позвоните по номеру 8 918 968-28-82 или оставьте заявку на сайте. Работаем ежедневно с 9:00 до 22:00." },
+        },
       ],
     },
-  };
+  ];
 
   return (
     <div className="min-h-screen">
