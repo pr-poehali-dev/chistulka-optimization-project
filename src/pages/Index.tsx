@@ -852,6 +852,7 @@ function ContactForm({ inView }: { inView: boolean }) {
   const [time, setTime] = useState("");
   const [comment, setComment] = useState("");
   const [sent, setSent] = useState(false);
+  const [error, setError] = useState(false);
 
   const toggle = (key: string) =>
     setSelected((prev) => prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key]);
@@ -861,8 +862,9 @@ function ContactForm({ inView }: { inView: boolean }) {
   const handleSubmit = async () => {
     if (!name || !phone) return;
     setLoading(true);
+    setError(false);
     try {
-      await fetch("https://functions.poehali.dev/e0c4663b-8df6-4eed-958d-8a57089eb58a", {
+      const res = await fetch("https://functions.poehali.dev/e0c4663b-8df6-4eed-958d-8a57089eb58a", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -873,7 +875,13 @@ function ContactForm({ inView }: { inView: boolean }) {
           comment,
         }),
       });
-      setSent(true);
+      if (res.ok) {
+        setSent(true);
+      } else {
+        setError(true);
+      }
+    } catch {
+      setError(true);
     } finally {
       setLoading(false);
     }
@@ -957,6 +965,11 @@ function ContactForm({ inView }: { inView: boolean }) {
             ? `Вызвать мастера — ${selected.map((k) => FURNITURE_TYPES.find((f) => f.key === k)?.label).join(", ")}`
             : "Вызвать мастера"}
         </button>
+        {error && (
+          <p className="text-xs text-center font-semibold" style={{ color: "#e53e3e" }}>
+            Не удалось отправить заявку. Позвоните нам: <a href="tel:+79189682882" style={{ color: "#e53e3e" }}>8 918 968-28-82</a>
+          </p>
+        )}
         <p className="text-xs text-center" style={{ color: "var(--gray)" }}>
           Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности
         </p>
