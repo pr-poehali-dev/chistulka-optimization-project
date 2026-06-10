@@ -16,9 +16,7 @@ const COOKIE_TYPES = [
     always: false,
     desc: "Помогают нам понимать, как посетители используют сайт: какие страницы просматривают, откуда приходят. Данные собираются анонимно.",
     examples: [
-      { name: "_ym_uid", purpose: "Яндекс.Метрика — уникальный идентификатор пользователя", expires: "1 год" },
-      { name: "_ym_d", purpose: "Яндекс.Метрика — дата первого визита", expires: "1 год" },
-      { name: "_ym_isad", purpose: "Яндекс.Метрика — наличие блокировщика рекламы", expires: "1 день" },
+      { name: "_analytics_session", purpose: "Сессия посещения — анонимный идентификатор визита", expires: "30 минут" },
     ],
   },
 ];
@@ -71,15 +69,9 @@ export default function CookiePolicy() {
           {/* Как мы используем */}
           <div className="bg-white rounded-3xl p-6 md:p-8 shadow-sm">
             <h2 className="font-oswald font-semibold text-xl mb-3" style={{ color: "var(--dark)" }}>Как мы используем cookie</h2>
-            <p className="text-sm leading-relaxed mb-4" style={{ color: "var(--gray)" }}>
+            <p className="text-sm leading-relaxed" style={{ color: "var(--gray)" }}>
               Мы используем файлы cookie, чтобы сайт работал корректно и чтобы понимать, как посетители им пользуются. Аналитические cookie подключаются только после вашего явного согласия.
             </p>
-            <div className="rounded-xl p-4 text-sm" style={{ background: "var(--light-bg)" }}>
-              <p className="font-semibold mb-1" style={{ color: "var(--dark)" }}>Яндекс.Метрика</p>
-              <p className="text-sm leading-relaxed" style={{ color: "var(--gray)" }}>
-                Мы используем сервис Яндекс.Метрика для анализа посещаемости. Он собирает анонимные данные о просмотрах страниц, источниках трафика и поведении пользователей. Метрика запускается только если вы нажали «Принять» в баннере cookie.
-              </p>
-            </div>
           </div>
 
           {/* Таблицы по типам */}
