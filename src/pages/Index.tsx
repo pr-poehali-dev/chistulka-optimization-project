@@ -5,6 +5,7 @@ import CookieBanner from "@/components/CookieBanner";
 import Seo from "@/components/Seo";
 import { BLOG_POSTS } from "@/data/blog";
 import { SERVICES_DATA } from "@/data/services";
+import { DISTRICTS } from "@/data/districts";
 
 // ============ УТИЛИТЫ ============
 
@@ -968,6 +969,79 @@ function ContactForm({ inView }: { inView: boolean }) {
   );
 }
 
+function Zones() {
+  const { ref, inView } = useInView();
+  const districts = DISTRICTS.filter((d) => d.type === "district");
+  const micros = DISTRICTS.filter((d) => d.type === "micro");
+
+  return (
+    <section id="zones" className="py-20 bg-white">
+      <div ref={ref} className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="text-center mb-12">
+          <span className={`section-tag ${inView ? "animate-fade-up" : "opacity-0"}`}>Зоны выезда</span>
+          <h2 className={`font-oswald font-bold mt-3 ${inView ? "animate-fade-up stagger-1" : "opacity-0"}`} style={{ fontSize: "clamp(2rem, 4vw, 3rem)", color: "var(--dark)" }}>
+            Работаем по всему Краснодару
+          </h2>
+          <p className={`mt-3 text-base max-w-xl mx-auto ${inView ? "animate-fade-up stagger-2" : "opacity-0"}`} style={{ color: "var(--gray)" }}>
+            Выезжаем в любой район и микрорайон города — без доплат за выезд
+          </p>
+        </div>
+
+        {/* Округа */}
+        <div className={`mb-8 ${inView ? "animate-fade-up stagger-2" : "opacity-0"}`}>
+          <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: "var(--gray)" }}>Округа</p>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {districts.map((d) => (
+              <Link
+                key={d.slug}
+                to={`/himchistka-${d.slug}`}
+                className="group flex items-center gap-3 bg-white rounded-2xl px-4 py-4 shadow-sm border transition-all hover:border-[var(--teal)] hover:shadow-md"
+                style={{ borderColor: "var(--border)" }}
+              >
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors group-hover:bg-[var(--teal)]" style={{ background: "rgba(12,184,160,0.1)" }}>
+                  <Icon name="MapPin" size={16} style={{ color: "var(--teal)" }} className="group-hover:text-white" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold leading-tight" style={{ color: "var(--dark)" }}>{d.name}</p>
+                  <p className="text-xs mt-0.5" style={{ color: "var(--teal)" }}>Подробнее →</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* Микрорайоны */}
+        <div className={`${inView ? "animate-fade-up stagger-3" : "opacity-0"}`}>
+          <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: "var(--gray)" }}>Микрорайоны и посёлки</p>
+          <div className="flex flex-wrap gap-2">
+            {micros.map((d) => (
+              <Link
+                key={d.slug}
+                to={`/himchistka-${d.slug}`}
+                className="flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium border transition-all hover:border-[var(--teal)] hover:text-[var(--teal)]"
+                style={{ borderColor: "var(--border)", color: "var(--dark)", background: "white" }}
+              >
+                <Icon name="MapPin" size={12} style={{ color: "var(--teal)" }} />
+                {d.name}
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* CTA */}
+        <div className={`mt-10 text-center ${inView ? "animate-fade-up stagger-4" : "opacity-0"}`}>
+          <p className="text-sm" style={{ color: "var(--gray)" }}>
+            Не нашли свой район?{" "}
+            <a href="tel:+79189682882" className="font-semibold" style={{ color: "var(--teal)" }}>
+              Позвоните — выедем куда нужно
+            </a>
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Contacts() {
   const { ref, inView } = useInView();
   return (
@@ -1206,6 +1280,7 @@ export default function Index() {
       <Reviews />
       <Blog />
       <Faq />
+      <Zones />
       <Contacts />
       <Footer />
       <FloatingActions />
