@@ -4,6 +4,7 @@ import Icon from "@/components/ui/icon";
 import CookieBanner from "@/components/CookieBanner";
 import Seo from "@/components/Seo";
 import { BLOG_POSTS } from "@/data/blog";
+import { SERVICES_DATA } from "@/data/services";
 
 // ============ УТИЛИТЫ ============
 
@@ -334,8 +335,10 @@ function Services() {
           </p>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {SERVICES.map((s, i) => (
-            <div key={s.title} className={`card-clean relative cursor-pointer overflow-hidden group ${inView ? `animate-fade-up stagger-${Math.min(i + 1, 6)}` : "opacity-0"}`}>
+          {SERVICES.map((s, i) => {
+            const sd = SERVICES_DATA.find((d) => d.title === s.title);
+            return (
+            <div key={s.title} className={`card-clean relative overflow-hidden group ${inView ? `animate-fade-up stagger-${Math.min(i + 1, 6)}` : "opacity-0"}`}>
               <div className="relative h-44 overflow-hidden">
                 <img
                   src={s.img}
@@ -355,12 +358,19 @@ function Services() {
               <div className="p-6 pt-7">
                 <h3 className="font-oswald font-bold text-lg mb-2" style={{ color: "var(--dark)" }}>{s.title}</h3>
                 <p className="text-sm leading-relaxed" style={{ color: "var(--gray)" }}>{s.desc}</p>
-                <button onClick={() => scrollToId("contacts")} className="mt-4 flex items-center gap-1.5 text-sm font-semibold transition-all hover:gap-3" style={{ color: "var(--teal)" }}>
-                  Подробнее <Icon name="ArrowRight" size={15} />
-                </button>
+                {sd ? (
+                  <Link to={`/uslugi/${sd.slug}`} className="mt-4 flex items-center gap-1.5 text-sm font-semibold transition-all hover:gap-3" style={{ color: "var(--teal)" }}>
+                    Подробнее <Icon name="ArrowRight" size={15} />
+                  </Link>
+                ) : (
+                  <button onClick={() => scrollToId("contacts")} className="mt-4 flex items-center gap-1.5 text-sm font-semibold transition-all hover:gap-3" style={{ color: "var(--teal)" }}>
+                    Подробнее <Icon name="ArrowRight" size={15} />
+                  </button>
+                )}
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

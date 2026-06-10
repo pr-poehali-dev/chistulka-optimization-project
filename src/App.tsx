@@ -9,6 +9,7 @@ import Index from "./pages/Index";
 import Privacy from "./pages/Privacy";
 import BlogPost from "./pages/BlogPost";
 import CookiePolicy from "./pages/CookiePolicy";
+import ServicePage from "./pages/ServicePage";
 import NotFound from "./pages/NotFound";
 import { useYandexMetrika } from "./hooks/useYandexMetrika";
 import { SeoNotFound } from "./components/Seo";
@@ -24,6 +25,7 @@ function AppInner() {
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/blog/:slug" element={<BlogPost />} />
         <Route path="/cookie-policy" element={<CookiePolicy />} />
+        <Route path="/uslugi/:slug" element={<ServicePage />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<><SeoNotFound /><NotFound /></>} />
       </Routes>
