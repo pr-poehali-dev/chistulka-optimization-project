@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import Icon from "@/components/ui/icon";
 import Seo from "@/components/Seo";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { getServiceBySlug, SERVICES_DATA } from "@/data/services";
 
 export default function ServicePage() {
@@ -61,6 +62,10 @@ export default function ServicePage() {
         path={`/uslugi/${service.slug}`}
         image={service.img}
         jsonLd={jsonLd}
+        breadcrumbs={[
+          { label: "Услуги", href: "/#services" },
+          { label: service.title },
+        ]}
       />
 
       {/* Header */}
@@ -81,6 +86,11 @@ export default function ServicePage() {
       </header>
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 py-12">
+
+        <Breadcrumbs items={[
+          { label: "Услуги", href: "/#services" },
+          { label: service.title },
+        ]} />
 
         {/* Hero */}
         <div className="grid md:grid-cols-2 gap-8 mb-12 items-center">

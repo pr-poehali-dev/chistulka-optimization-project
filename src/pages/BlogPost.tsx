@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import Icon from "@/components/ui/icon";
 import Seo from "@/components/Seo";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { getPostBySlug, BLOG_POSTS } from "@/data/blog";
 
 export default function BlogPost() {
@@ -55,6 +56,10 @@ export default function BlogPost() {
         image={post.img}
         type="article"
         jsonLd={articleLd}
+        breadcrumbs={[
+          { label: "Блог", href: "/#blog" },
+          { label: post.title },
+        ]}
       />
       <header className="border-b bg-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 py-5 flex items-center justify-between">
@@ -73,6 +78,10 @@ export default function BlogPost() {
       </header>
 
       <main className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+        <Breadcrumbs items={[
+          { label: "Блог", href: "/#blog" },
+          { label: post.title },
+        ]} />
         <div className="flex items-center gap-3 mb-4">
           <span className="section-tag text-xs">{post.tag}</span>
           <span className="text-xs" style={{ color: "var(--gray)" }}>{post.date}</span>
