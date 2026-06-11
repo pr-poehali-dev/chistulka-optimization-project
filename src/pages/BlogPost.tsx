@@ -50,8 +50,9 @@ export default function BlogPost() {
   return (
     <div className="min-h-screen" style={{ background: "var(--light-bg)" }}>
       <Seo
-        title={`${post.title} | Блог «Аренда Чистоты»`}
-        description={post.excerpt}
+        title={post.seoTitle ?? `${post.title} | Блог «Аренда Чистоты»`}
+        description={post.seoDescription ?? post.excerpt}
+        keywords={post.keywords}
         path={`/blog/${post.slug}`}
         image={post.img}
         type="article"
