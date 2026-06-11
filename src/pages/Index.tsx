@@ -277,6 +277,7 @@ function Hero() {
                   <path d="M2 9 Q50 2 100 8 Q150 14 198 6" stroke="#ffe227" strokeWidth="3.5" strokeLinecap="round" fill="none" />
                 </svg>
               </span>
+              {" "}с выездом на дом
             </h1>
             <p className="speakable text-lg animate-fade-up stagger-3" style={{ color: "var(--gray)", maxWidth: 480 }}>
               Профессиональная химчистка диванов, кресел, матрасов и ковров в Краснодаре. Выезд на дом, безопасные средства, сушка за 2–4 часа.
@@ -601,7 +602,7 @@ function About() {
           <div className="space-y-5">
             <span className={`section-tag ${inView ? "animate-fade-up stagger-1" : "opacity-0"}`}>О компании</span>
             <h2 className={`font-oswald font-bold ${inView ? "animate-fade-up stagger-2" : "opacity-0"}`} style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)", color: "var(--dark)" }}>
-              Возвращаем мебели первозданный вид
+              Почему выбирают «Аренду Чистоты»
             </h2>
             <p className={`text-base leading-relaxed ${inView ? "animate-fade-up stagger-3" : "opacity-0"}`} style={{ color: "var(--gray)" }}>
               С 2016 года специализируемся на химчистке мебели в Краснодаре. Профессиональное оборудование, безопасные средства и выезд в удобное для вас время.
@@ -622,6 +623,188 @@ function About() {
               ))}
             </div>
 
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const HOW_STEPS = [
+  {
+    num: "01",
+    icon: "Search",
+    title: "Осмотр и диагностика",
+    text: "Бесплатно оцениваем степень загрязнения и тип ткани. Называем точную цену до начала работ — без скрытых доплат.",
+  },
+  {
+    num: "02",
+    icon: "Wind",
+    title: "Сухая чистка",
+    text: "Удаляем пыль, шерсть и мусор из всех складок мощным профессиональным пылесосом.",
+  },
+  {
+    num: "03",
+    icon: "Droplets",
+    title: "Выведение пятен",
+    text: "Точечно обрабатываем сложные загрязнения специализированными пятновыводителями под каждый тип пятна.",
+  },
+  {
+    num: "04",
+    icon: "Sparkles",
+    title: "Основная мойка",
+    text: "Наносим средство, вспениваем, вымываем грязь экстрактором горячей воды — машина вытягивает загрязнения из глубины.",
+  },
+  {
+    num: "05",
+    icon: "CheckCircle",
+    title: "Сушка и финиш",
+    text: "Ускоряем сушку воздуходувкой, поднимаем ворс, проводим финальный осмотр вместе с клиентом. Принимаете — платите.",
+  },
+];
+
+function HowWeWork() {
+  const { ref, inView } = useInView();
+  return (
+    <section id="how" className="py-20 bg-white">
+      <div ref={ref} className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="text-center mb-14">
+          <span className={`section-tag ${inView ? "animate-fade-up" : "opacity-0"}`}>Процесс</span>
+          <h2 className={`font-oswald font-bold mt-3 ${inView ? "animate-fade-up stagger-1" : "opacity-0"}`} style={{ fontSize: "clamp(2rem, 4vw, 3rem)", color: "var(--dark)" }}>
+            Как мы работаем
+          </h2>
+          <p className={`mt-3 text-base max-w-xl mx-auto ${inView ? "animate-fade-up stagger-2" : "opacity-0"}`} style={{ color: "var(--gray)" }}>
+            5 шагов от звонка до чистого дивана — прозрачно, без сюрпризов
+          </p>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-5">
+          {HOW_STEPS.map((step, i) => (
+            <div
+              key={step.num}
+              className={`relative card-clean p-5 flex flex-col gap-3 ${inView ? `animate-fade-up stagger-${Math.min(i + 2, 6)}` : "opacity-0"}`}
+            >
+              <div className="flex items-start justify-between">
+                <div
+                  className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
+                  style={{ background: "var(--teal-light)" }}
+                >
+                  <Icon name={step.icon} size={20} style={{ color: "var(--teal)" }} />
+                </div>
+                <span
+                  className="font-oswald font-bold text-2xl"
+                  style={{ color: "rgba(12,184,160,0.15)" }}
+                >
+                  {step.num}
+                </span>
+              </div>
+              <h3 className="font-oswald font-bold text-base leading-snug" style={{ color: "var(--dark)" }}>
+                {step.title}
+              </h3>
+              <p className="text-xs leading-relaxed" style={{ color: "var(--gray)" }}>
+                {step.text}
+              </p>
+              {i < HOW_STEPS.length - 1 && (
+                <div
+                  className="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full flex items-center justify-center z-10"
+                  style={{ background: "var(--yellow)" }}
+                >
+                  <Icon name="ChevronRight" size={14} style={{ color: "var(--dark)" }} />
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const RATING_PLATFORMS = [
+  {
+    name: "Яндекс Карты",
+    rating: "4.9",
+    reviews: "840+",
+    icon: "MapPin",
+    color: "#FF4433",
+    href: "https://yandex.ru/maps/org/arenda_chistoty",
+  },
+  {
+    name: "Zoon.ru",
+    rating: "5.0",
+    reviews: "210+",
+    icon: "Star",
+    color: "#FF8C00",
+    href: "https://zoon.ru",
+  },
+  {
+    name: "Профи.ру",
+    rating: "4.98",
+    reviews: "190+",
+    icon: "Award",
+    color: "#6C47FF",
+    href: "https://profi.ru",
+  },
+];
+
+function TrustRatings() {
+  const { ref, inView } = useInView();
+  return (
+    <section className="py-14" style={{ background: "var(--dark)" }}>
+      <div ref={ref} className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="text-center mb-10">
+          <h2 className={`font-oswald font-bold text-white ${inView ? "animate-fade-up" : "opacity-0"}`} style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)" }}>
+            Нас проверили тысячи клиентов
+          </h2>
+          <p className={`mt-2 text-sm ${inView ? "animate-fade-up stagger-1" : "opacity-0"}`} style={{ color: "rgba(255,255,255,0.5)" }}>
+            Независимые оценки на ведущих платформах
+          </p>
+        </div>
+        <div className="grid sm:grid-cols-3 gap-5 mb-10">
+          {RATING_PLATFORMS.map((p, i) => (
+            <a
+              key={p.name}
+              href={p.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`flex items-center gap-4 rounded-2xl p-5 transition-all hover:scale-[1.02] ${inView ? `animate-fade-up stagger-${i + 2}` : "opacity-0"}`}
+              style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)" }}
+            >
+              <div
+                className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+                style={{ background: `${p.color}22` }}
+              >
+                <Icon name={p.icon} size={22} style={{ color: p.color }} />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="text-white font-semibold text-sm">{p.name}</div>
+                <div className="flex items-center gap-1.5 mt-0.5">
+                  <span className="font-oswald font-bold text-xl" style={{ color: "var(--yellow)" }}>{p.rating}</span>
+                  <span className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>/ {p.reviews} отзывов</span>
+                </div>
+                <div className="flex gap-0.5 mt-1">
+                  {[1,2,3,4,5].map((s) => (
+                    <span key={s} style={{ color: "var(--yellow)", fontSize: 12 }}>★</span>
+                  ))}
+                </div>
+              </div>
+              <Icon name="ExternalLink" size={14} style={{ color: "rgba(255,255,255,0.3)", flexShrink: 0 }} />
+            </a>
+          ))}
+        </div>
+        <div className={`text-center ${inView ? "animate-fade-up stagger-5" : "opacity-0"}`}>
+          <div
+            className="inline-flex items-center gap-3 rounded-2xl px-8 py-4"
+            style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)" }}
+          >
+            <div className="font-oswald font-bold text-4xl" style={{ color: "var(--yellow)" }}>4.98</div>
+            <div>
+              <div className="flex gap-0.5 mb-0.5">
+                {[1,2,3,4,5].map((s) => (
+                  <span key={s} style={{ color: "var(--yellow)", fontSize: 18 }}>★</span>
+                ))}
+              </div>
+              <div className="text-xs" style={{ color: "rgba(255,255,255,0.5)" }}>средний рейтинг по всем платформам · 1240+ отзывов</div>
+            </div>
           </div>
         </div>
       </div>
@@ -729,6 +912,14 @@ const FAQ_ITEMS = [
   {
     q: "Как оплатить услугу?",
     a: "Оплата принимается наличными или переводом после выполнения работ, когда вы убедитесь в результате.",
+  },
+  {
+    q: "У вас дешевле, чем у других? В чём подвох?",
+    a: "Подвоха нет. Мы работаем без посредников и имеем собственную базу в Краснодаре — это снижает наши расходы. Именно поэтому можем предложить цены ниже среднерыночных при высоком качестве и с гарантией результата. Оплата только после приёмки.",
+  },
+  {
+    q: "У меня очень сложное пятно от вина или крови. Вы его гарантированно выведете?",
+    a: "В большинстве случаев — да. Мастер бесплатно оценит пятно на месте и сразу скажет о прогнозе. Если вывести не удастся — вы ничего не платите. Мы не берём деньги за попытку.",
   },
 ];
 
@@ -1228,8 +1419,8 @@ export default function Index() {
   return (
     <div className="min-h-screen">
       <Seo
-        title="Химчистка мебели в Краснодаре — диваны, кресла, матрасы | Аренда Чистоты"
-        description="Профессиональная химчистка мягкой мебели, диванов, кресел, матрасов, ковров и автомобилей в Краснодаре. Выезд на дом, безопасные средства, сушка за 2–4 часа. Недорого. ☎ 8 918 968-28-82"
+        title="Химчистка мягкой мебели в Краснодаре — выезд на дом | Аренда Чистоты"
+        description="Профессиональная химчистка мягкой мебели в Краснодаре с выездом на дом. Диваны, кресла, матрасы, ковры, автомобили. Безопасные средства, сушка за 2–4 часа, гарантия результата. ☎ 8 918 968-28-82"
         keywords="химчистка мебели, химчистка мебели краснодар, химчистка мягкой мебели, химчистка мягкой мебели краснодар, химчистка мебели на дому, химчистка мебели на дому краснодар, химчистка мягкой мебели на дому, химчистка мебели цена, химчистка мебели на дому цена, химчистка мебели краснодар на дому цена, химчистка мягкой мебели краснодар цена, стоимость химчистки мебели, сколько стоит химчистка мебели, услуги химчистки мебели, услуги химчистки мягкой мебели, профессиональная химчистка мебели, профессиональная химчистка мягкой мебели, лучшая химчистка мебели, химчистка мебели с выездом, выездная химчистка мебели, выездная химчистка мягкой мебели, химчистка мебели и ковров, химчистка ковров мягкой мебели, химчистка мягкой мебели с выездом на дом, сухая химчистка мебели, влажная химчистка мебели, химчистка тканевой мебели, химчистка обивки мебели, химчистка обивки мягкой мебели, химчистка кожаной мебели, химчистка домашней мебели, химчистка мебели диванов, химчистка дивана чистка мебели, химчистка мебели матрасов, заказать химчистку мебели, химчистка мебели недорого, химчистка мягкой мебели недорого, химчистка мебели на дому недорого, клининг химчистка мебели, химчистка мебели авто, химчистка мебели автомобиля, химчистка салона автомобиля мебели, химчистка мебели пятен, химчистка мебели от запахов, химчистка мебели моча, аренда чистоты краснодар"
         path="/"
         jsonLd={seoLd}
@@ -1240,6 +1431,8 @@ export default function Index() {
       <Services />
       <Calculator />
       <About />
+      <HowWeWork />
+      <TrustRatings />
       <Reviews />
       <Blog />
       <Faq />
