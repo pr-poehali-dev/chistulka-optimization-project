@@ -209,6 +209,9 @@ function Navbar() {
               {l.label}
             </a>
           ))}
+          <Link to="/nashi-raboty" className="text-sm font-medium transition-colors hover:text-[var(--teal)]" style={{ color: "var(--dark)", fontFamily: "'Golos Text', sans-serif" }}>
+            Наши работы
+          </Link>
         </div>
         <div className="hidden lg:flex items-center gap-3">
           <a href="tel:+79189682882" className="flex items-center gap-2 text-sm font-semibold" style={{ color: "var(--teal)" }}>
@@ -239,6 +242,7 @@ function Navbar() {
           {NAV_LINKS.filter((l) => l.label !== "Услуги").map((l) => (
             <a key={l.href} href={l.href} className="py-2 font-medium text-sm" style={{ color: "var(--dark)" }} onClick={() => setOpen(false)}>{l.label}</a>
           ))}
+          <Link to="/nashi-raboty" className="py-2 font-medium text-sm" style={{ color: "var(--dark)" }} onClick={() => setOpen(false)}>Наши работы</Link>
           <button onClick={() => { setOpen(false); scrollToId("contacts"); }} className="btn-primary px-5 py-2.5 mt-2 text-sm">Вызвать мастера</button>
         </div>
       )}
@@ -1064,6 +1068,9 @@ function Footer() {
                 {l.label}
               </a>
             ))}
+            <Link to="/nashi-raboty" className="text-sm transition-colors hover:text-white" style={{ color: "rgba(255,255,255,0.4)" }}>
+              Наши работы
+            </Link>
           </div>
           <div className="flex items-center gap-3">
             <div className="text-sm" style={{ color: "rgba(255,255,255,0.3)" }}>© 2026 Аренда Чистоты</div>
