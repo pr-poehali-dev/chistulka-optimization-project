@@ -261,7 +261,7 @@ export default function DistrictPage() {
       {/* Footer mini */}
       <footer className="border-t bg-white mt-12">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm" style={{ color: "var(--gray)" }}>
-          <span>© 2024 Аренда Чистоты, Краснодар</span>
+          <span>© 2026 Аренда Чистоты, Краснодар</span>
           <div className="flex gap-4">
             <Link to="/privacy" style={{ color: "var(--gray)" }} className="hover:underline">Конфиденциальность</Link>
             <Link to="/cookie-policy" style={{ color: "var(--gray)" }} className="hover:underline">Cookie</Link>
