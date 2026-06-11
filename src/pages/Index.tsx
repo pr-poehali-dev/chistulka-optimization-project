@@ -306,8 +306,8 @@ function Hero() {
           <div className="relative animate-scale-in stagger-3">
             <div className="relative rounded-3xl overflow-hidden shadow-2xl" style={{ aspectRatio: "4/3" }}>
               <img
-                src="https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/files/1f8a12d2-02a6-452c-a1cb-4fa8f342c646.jpg"
-                alt="Химчистка дивана — профессиональная чистка мебели в Краснодаре"
+                src="https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/bucket/ce53b60a-fcdf-4aa5-951f-6fff06f91683.jpg"
+                alt="Химчистка кресла — до и после | Аренда Чистоты Краснодар"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(12,184,160,0.12) 0%, transparent 60%)" }} />
