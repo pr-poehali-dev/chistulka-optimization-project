@@ -235,6 +235,7 @@ export default function ServicePage() {
           <span>© 2024 Аренда Чистоты, Краснодар</span>
           <div className="flex gap-4">
             <Link to="/privacy" style={{ color: "var(--gray)" }} className="hover:underline">Конфиденциальность</Link>
+            <Link to="/cookie-policy" style={{ color: "var(--gray)" }} className="hover:underline">Cookie</Link>
             <a href="tel:+79189682882" style={{ color: "var(--teal)" }} className="font-medium">8 918 968-28-82</a>
           </div>
         </div>
