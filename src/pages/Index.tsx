@@ -677,7 +677,7 @@ function HowWeWork() {
             5 шагов от звонка до чистого дивана — прозрачно, без сюрпризов
           </p>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-5">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-5 mb-10">
           {HOW_STEPS.map((step, i) => (
             <div
               key={step.num}
@@ -711,6 +711,23 @@ function HowWeWork() {
                   <Icon name="ChevronRight" size={14} style={{ color: "var(--dark)" }} />
                 </div>
               )}
+            </div>
+          ))}
+        </div>
+        <div className={`grid grid-cols-2 sm:grid-cols-4 gap-3 ${inView ? "animate-fade-up stagger-6" : "opacity-0"}`}>
+          {[
+            { src: "https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/bucket/52db93f3-6b44-4461-825a-8f573412e67b.jpg", alt: "Мастер Аренда Чистоты чистит кресла в ресторане" },
+            { src: "https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/bucket/7b2d4644-7da2-4b65-a5d8-0ee651819090.jpg", alt: "Химчистка матраса в детской комнате" },
+            { src: "https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/bucket/3883dcbc-ec95-4d82-a6a4-1bc371e3823b.jpg", alt: "Чистка ковра с помощью экстрактора" },
+            { src: "https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/bucket/b8f3b941-b079-4a94-8843-d814bf91c83a.jpg", alt: "Профессиональная химчистка мебели на дому" },
+          ].map((photo) => (
+            <div key={photo.src} className="rounded-2xl overflow-hidden" style={{ aspectRatio: "4/3" }}>
+              <img
+                src={photo.src}
+                alt={photo.alt}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
             </div>
           ))}
         </div>

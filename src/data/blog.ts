@@ -266,7 +266,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "5 признаков, что ваш диван пора чистить",
     date: "1 июня 2026",
     readTime: "3 мин",
-    img: "https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/files/fbe70ba2-6db2-424f-8ba1-648396b7092d.jpg",
+    img: "https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/bucket/52db93f3-6b44-4461-825a-8f573412e67b.jpg",
     excerpt:
       "Большинство владельцев чистят диван только когда видят пятно. Но есть признаки, которые заметны задолго до этого момента.",
     content: [
@@ -322,7 +322,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "Химчистка матраса в домашних условиях: что работает, а что нет",
     date: "8 июня 2026",
     readTime: "5 мин",
-    img: "https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/files/91feb1a3-516a-4121-acdd-e7848178d83f.jpg",
+    img: "https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/bucket/7b2d4644-7da2-4b65-a5d8-0ee651819090.jpg",
     excerpt:
       "Матрас — самый интимный предмет в вашей спальне, и при этом самый редко чистящийся. Разбираем, как правильно ухаживать за ним и когда без профессионала не обойтись.",
     content: [
@@ -380,7 +380,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "Химчистка детского кресла и автокресла: всё, что нужно знать родителям",
     date: "6 июня 2026",
     readTime: "4 мин",
-    img: "https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/files/08d35f06-6ecd-4c21-a709-42f23a1e4951.jpg",
+    img: "https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/bucket/b8f3b941-b079-4a94-8843-d814bf91c83a.jpg",
     excerpt:
       "Детское кресло и автокресло — лидеры по загрязнённости среди всей мягкой мебели. Рассказываем, как чистить правильно и безопасно для ребёнка.",
     content: [
@@ -435,7 +435,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "Химчистка ковра в квартире: вывезти или почистить дома?",
     date: "4 июня 2026",
     readTime: "5 мин",
-    img: "https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/files/4aefd336-06ed-4dc6-84f8-86b03f8805e9.jpg",
+    img: "https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/bucket/3883dcbc-ec95-4d82-a6a4-1bc371e3823b.jpg",
     excerpt:
       "Многие думают, что ковёр нужно обязательно вывозить на мойку. На самом деле — нет. Разбираем оба варианта и объясняем, когда что выбирать.",
     content: [
