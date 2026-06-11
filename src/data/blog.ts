@@ -322,7 +322,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "Химчистка матраса в домашних условиях: что работает, а что нет",
     date: "8 июня 2026",
     readTime: "5 мин",
-    img: "https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/bucket/b8f3b941-b079-4a94-8843-d814bf91c83a.jpg",
+    img: "https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/bucket/58ec7172-7697-4348-a10c-6bf52a34011c.jpg",
     excerpt:
       "Матрас — самый интимный предмет в вашей спальне, и при этом самый редко чистящийся. Разбираем, как правильно ухаживать за ним и когда без профессионала не обойтись.",
     content: [
@@ -380,7 +380,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "Химчистка детского кресла и автокресла: всё, что нужно знать родителям",
     date: "6 июня 2026",
     readTime: "4 мин",
-    img: "https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/bucket/52db93f3-6b44-4461-825a-8f573412e67b.jpg",
+    img: "https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/bucket/a8f15019-c5bf-4b70-8549-5b9dbd9c6219.jpg",
     excerpt:
       "Детское кресло и автокресло — лидеры по загрязнённости среди всей мягкой мебели. Рассказываем, как чистить правильно и безопасно для ребёнка.",
     content: [
