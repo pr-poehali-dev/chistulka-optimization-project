@@ -66,6 +66,28 @@ export const WORKS: WorkCase[] = [
     afterImg: "https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/bucket/de8a7092-f0d1-4176-91fc-8f045dbc7bb0.jpg",
     result: "Ткань очищена, цвет восстановлен",
   },
+  {
+    id: 6,
+    category: "mattress",
+    categoryLabel: "Матрас",
+    title: "Детский матрас — до и после",
+    description: "Односпальный матрас с цветочным принтом. Сильные органические пятна слева — результат после чистки.",
+    stain: "Органические пятна, пожелтение",
+    beforeImg: "https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/bucket/4bc0afcd-6c3b-4c6e-89d0-51569d1ef36e.jpg",
+    afterImg: "https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/bucket/041e747b-9a0e-4bea-9335-238eabfa4473.jpg",
+    result: "Пятна выведены, матрас обеззаражен, запах устранён",
+  },
+  {
+    id: 7,
+    category: "sofa",
+    categoryLabel: "Диван",
+    title: "Угловой диван из рогожки — до и после",
+    description: "Угловой диван коричневого цвета из рогожки. Множество пятен от напитков до чистки — результат после.",
+    stain: "Пятна от напитков, общее загрязнение",
+    beforeImg: "https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/bucket/38109181-291f-43d2-acbc-d8059547943b.jpg",
+    afterImg: "https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/bucket/51340069-99b0-4850-915a-6563a587e2b6.jpg",
+    result: "Все пятна выведены, ткань освежена, цвет восстановлен",
+  },
 ];
 
 export const WORK_CATEGORIES = [
