@@ -1249,6 +1249,7 @@ function Contacts() {
             <div className={`space-y-4 ${inView ? "animate-fade-up stagger-3" : "opacity-0"}`}>
               {[
                 { icon: "Phone", label: "Телефон", value: "8 918 968-28-82", sub: "Звоните в любое время", link: "tel:+79189682882" },
+                { icon: "MessageSquare", label: "WhatsApp", value: "Написать в WhatsApp", sub: "Онлайн 9:00–22:00", link: "https://wa.me/79189682882" },
                 { icon: "MessageCircle", label: "MAX", value: "Написать в MAX", sub: "Онлайн 9:00–22:00", link: "https://max.ru/u/f9LHodD0cOIhDoRH_6LXfcSUOHBuL1Ox9Kjst5F3mN4736vAC4pXtz-GKzc" },
                 { icon: "Users", label: "ВКонтакте", value: "Группа ВКонтакте", sub: "Отзывы и акции", link: "https://vk.com/club239497134" },
                 { icon: "MapPin", label: "Адрес", value: "Краснодар", sub: "Работаем по всему городу и краю", link: null },
