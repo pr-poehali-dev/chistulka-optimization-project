@@ -912,7 +912,7 @@ function Gallery() {
         <div className={`text-center mt-8 ${inView ? "animate-fade-up stagger-6" : "opacity-0"}`}>
           <Link to="/nashi-raboty" className="btn-primary inline-flex items-center gap-2 px-8 py-3 text-sm font-oswald">
             <Icon name="Images" size={18} />
-            Смотреть все 6+ работ с фото до и после
+            Смотреть все работы
           </Link>
         </div>
       </div>
