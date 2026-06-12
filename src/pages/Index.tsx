@@ -115,12 +115,12 @@ const REVIEWS = [
 ];
 
 const GALLERY_ITEMS = [
-  { label: "Угловой диван велюр", tag: "Диван", img: "https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/bucket/19a85ebd-07f4-41ee-b669-283901cc5d56.jpg", ratio: "4/3" },
+  { label: "Угловой диван после чистки", tag: "Диван", img: "https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/bucket/51340069-99b0-4850-915a-6563a587e2b6.jpg", ratio: "4/3" },
+  { label: "Диван до чистки", tag: "Диван", img: "https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/bucket/38109181-291f-43d2-acbc-d8059547943b.jpg", ratio: "4/3" },
+  { label: "Матрас после чистки", tag: "Матрас", img: "https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/bucket/041e747b-9a0e-4bea-9335-238eabfa4473.jpg", ratio: "4/3" },
+  { label: "Матрас до чистки", tag: "Матрас", img: "https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/bucket/4bc0afcd-6c3b-4c6e-89d0-51569d1ef36e.jpg", ratio: "4/3" },
   { label: "Диван на деревянном каркасе", tag: "Диван", img: "https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/bucket/0d399941-6be9-402b-a9b0-6fdc6aa76976.jpg", ratio: "4/3" },
   { label: "Угловой диван малиновый", tag: "Диван", img: "https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/bucket/0795fb22-d0f2-4e07-b371-104be7b65f25.jpg", ratio: "4/3" },
-  { label: "Двуспальный матрас", tag: "Матрас", img: "https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/bucket/c8083665-fe6c-4b01-a3fd-e72b11ac9161.jpg", ratio: "4/3" },
-  { label: "Диван на деревянных подлокотниках", tag: "Диван", img: "https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/bucket/de8a7092-f0d1-4176-91fc-8f045dbc7bb0.jpg", ratio: "4/3" },
-  { label: "Угловой диван велюр", tag: "Диван", img: "https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/bucket/19a85ebd-07f4-41ee-b669-283901cc5d56.jpg", ratio: "1/1" },
 ];
 
 const FURNITURE_ITEMS = [
