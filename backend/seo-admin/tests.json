@@ -1,94 +1,330 @@
 # local_test.py
 import json
 import os
-from handler import handler
+import sys
+from unittest.mock import patch, MagicMock
 
-# Установите тестовый пароль для локального тестирования
-# Можно также установить переменную окружения:
-# export SEO_ADMIN_PASSWORD="test123"
+# Установка тестовых переменных окружения
 if not os.environ.get("SEO_ADMIN_PASSWORD"):
     os.environ["SEO_ADMIN_PASSWORD"] = "test123"
 
-# Для тестов БД (опционально, если нет БД - будут ошибки)
-# Можно замокать или использовать тестовую БД
-if not os.environ.get("DATABASE_URL"):
-    # Используйте SQLite для тестов или временную PostgreSQL
+# Для тестов без реальной БД - используем мок
+USE_MOCK_DB = os.environ.get("USE_MOCK_DB", "true").lower() == "true"
+
+if USE_MOCK_DB and not os.environ.get("DATABASE_URL"):
+    print("🔧 Using mock database for tests")
+    # Создаем мок для psycopg2 ДО импорта handler
+    mock_psycopg2 = MagicMock()
+    mock_psycopg2.sql = MagicMock()
+    sys.modules['psycopg2'] = mock_psycopg2
+    sys.modules['psycopg2.sql'] = mock_psycopg2.sql
+    
+    # Устанавливаем фейковый DATABASE_URL
+    os.environ["DATABASE_URL"] = "postgresql://mock:mock@localhost/mock"
+elif not os.environ.get("DATABASE_URL"):
     os.environ["DATABASE_URL"] = "postgresql://user:pass@localhost/test_db"
 
+# Теперь импортируем handler
+from handler import handler
+
+
+def create_mock_db_connection():
+    """Создает мок для базы данных с тестовыми данными"""
+    mock_conn = MagicMock()
+    mock_cursor = MagicMock()
+    
+    # Настройка возвращаемых данных для разных запросов
+    mock_pages_data = [
+        ("/", "Главная", "Home Title", "Home Description", "home,keywords", '{"@context":"https://schema.org"}', None),
+        ("/about", "О нас", "About Title", "About Description", "about,company", None, None),
+    ]
+    
+    mock_robots_data = [("User-agent: *\nAllow: /",)]
+    
+    # Настраиваем fetchall для разных запросов
+    def fetchall_side_effect():
+        return mock_pages_data
+    
+    def fetchone_side_effect():
+        return mock_robots_data[0]
+    
+    mock_cursor.fetchall = fetchall_side_effect
+    mock_cursor.fetchone = fetchone_side_effect
+    mock_conn.cursor.return_value = mock_cursor
+    
+    return mock_conn, mock_cursor
+
+
+def run_local_tests_with_mock():
+    """Запуск тестов с мок-базой данных"""
+    print("\n" + "=" * 60)
+    print("🧪 RUNNING LOCAL TESTS WITH MOCK DB")
+    print("=" * 60)
+    
+    correct_password = os.environ["SEO_ADMIN_PASSWORD"]
+    passed = 0
+    failed = 0
+    
+    # Создаем мок для get_conn
+    mock_conn, mock_cursor = create_mock_db_connection()
+    
+    with patch('handler.get_conn', return_value=mock_conn):
+        
+        # Тест 1: OPTIONS запрос
+        print("\n📝 Test 1: OPTIONS preflight")
+        event = {
+            "httpMethod": "OPTIONS",
+            "path": "/seo-admin",
+            "headers": {}
+        }
+        result = handler(event, None)
+        if result['statusCode'] == 200:
+            print(f"   ✅ Status: {result['statusCode']}")
+            if "Access-Control-Allow-Origin" in result.get("headers", {}):
+                print("   ✅ CORS headers present")
+                passed += 1
+            else:
+                print("   ❌ Missing CORS headers")
+                failed += 1
+        else:
+            print(f"   ❌ Expected 200, got {result['statusCode']}")
+            failed += 1
+        
+        # Тест 2: GET без авторизации
+        print("\n📝 Test 2: GET without auth")
+        event = {
+            "httpMethod": "GET",
+            "path": "/seo-admin",
+            "headers": {}
+        }
+        result = handler(event, None)
+        if result['statusCode'] == 401:
+            print(f"   ✅ Status: {result['statusCode']}")
+            passed += 1
+        else:
+            print(f"   ❌ Expected 401, got {result['statusCode']}")
+            failed += 1
+        
+        # Тест 3: GET с правильной авторизацией
+        print("\n📝 Test 3: GET with correct auth")
+        event = {
+            "httpMethod": "GET",
+            "path": "/seo-admin",
+            "headers": {"X-Authorization": f"Bearer {correct_password}"}
+        }
+        result = handler(event, None)
+        if result['statusCode'] == 200:
+            print(f"   ✅ Status: {result['statusCode']}")
+            # Проверяем структуру ответа
+            body = json.loads(result['body'])
+            if 'pages' in body and 'robots' in body:
+                print(f"   ✅ Response structure OK (pages: {len(body['pages'])})")
+                passed += 1
+            else:
+                print(f"   ❌ Invalid response structure")
+                failed += 1
+        else:
+            print(f"   ❌ Expected 200, got {result['statusCode']}")
+            failed += 1
+        
+        # Тест 4: GET с неверным токеном
+        print("\n📝 Test 4: GET with wrong token")
+        event = {
+            "httpMethod": "GET",
+            "path": "/seo-admin",
+            "headers": {"X-Authorization": "Bearer wrong-password"}
+        }
+        result = handler(event, None)
+        if result['statusCode'] == 401:
+            print(f"   ✅ Status: {result['statusCode']}")
+            passed += 1
+        else:
+            print(f"   ❌ Expected 401, got {result['statusCode']}")
+            failed += 1
+        
+        # Тест 5: POST /page с валидными данными
+        print("\n📝 Test 5: POST /page with valid data")
+        event = {
+            "httpMethod": "POST",
+            "path": "/seo-admin/page",
+            "headers": {"X-Authorization": f"Bearer {correct_password}"},
+            "body": json.dumps({
+                "page_key": "test-page",
+                "page_label": "Test Page",
+                "title": "Test Title",
+                "description": "Test Description",
+                "keywords": "test,keywords"
+            })
+        }
+        result = handler(event, None)
+        if result['statusCode'] == 200:
+            print(f"   ✅ Status: {result['statusCode']}")
+            passed += 1
+        else:
+            print(f"   ❌ Expected 200, got {result['statusCode']}")
+            failed += 1
+        
+        # Тест 6: POST /page без page_key
+        print("\n📝 Test 6: POST /page without page_key")
+        event = {
+            "httpMethod": "POST",
+            "path": "/seo-admin/page",
+            "headers": {"X-Authorization": f"Bearer {correct_password}"},
+            "body": json.dumps({"title": "Test"})
+        }
+        result = handler(event, None)
+        if result['statusCode'] == 400:
+            print(f"   ✅ Status: {result['statusCode']}")
+            passed += 1
+        else:
+            print(f"   ❌ Expected 400, got {result['statusCode']}")
+            failed += 1
+        
+        # Тест 7: POST /page с невалидным JSON в schema_json
+        print("\n📝 Test 7: POST /page with invalid schema_json")
+        event = {
+            "httpMethod": "POST",
+            "path": "/seo-admin/page",
+            "headers": {"X-Authorization": f"Bearer {correct_password}"},
+            "body": json.dumps({
+                "page_key": "test-invalid",
+                "schema_json": "{invalid json}"
+            })
+        }
+        result = handler(event, None)
+        if result['statusCode'] == 400:
+            print(f"   ✅ Status: {result['statusCode']}")
+            passed += 1
+        else:
+            print(f"   ❌ Expected 400, got {result['statusCode']}")
+            failed += 1
+        
+        # Тест 8: POST /robots с валидными данными
+        print("\n📝 Test 8: POST /robots with valid data")
+        event = {
+            "httpMethod": "POST",
+            "path": "/seo-admin/robots",
+            "headers": {"X-Authorization": f"Bearer {correct_password}"},
+            "body": json.dumps({"content": "User-agent: *\nAllow: /\nSitemap: https://example.com/sitemap.xml"})
+        }
+        result = handler(event, None)
+        if result['statusCode'] == 200:
+            print(f"   ✅ Status: {result['statusCode']}")
+            passed += 1
+        else:
+            print(f"   ❌ Expected 200, got {result['statusCode']}")
+            failed += 1
+        
+        # Тест 9: POST /robots без авторизации
+        print("\n📝 Test 9: POST /robots without auth")
+        event = {
+            "httpMethod": "POST",
+            "path": "/seo-admin/robots",
+            "headers": {},
+            "body": json.dumps({"content": "test"})
+        }
+        result = handler(event, None)
+        if result['statusCode'] == 401:
+            print(f"   ✅ Status: {result['statusCode']}")
+            passed += 1
+        else:
+            print(f"   ❌ Expected 401, got {result['statusCode']}")
+            failed += 1
+        
+        # Тест 10: Неизвестный эндпоинт
+        print("\n📝 Test 10: Unknown endpoint")
+        event = {
+            "httpMethod": "GET",
+            "path": "/seo-admin/unknown",
+            "headers": {"X-Authorization": f"Bearer {correct_password}"}
+        }
+        result = handler(event, None)
+        if result['statusCode'] == 404:
+            print(f"   ✅ Status: {result['statusCode']}")
+            passed += 1
+        else:
+            print(f"   ❌ Expected 404, got {result['statusCode']}")
+            failed += 1
+    
+    # Итоги
+    print("\n" + "=" * 60)
+    print(f"📊 RESULTS: {passed} passed, {failed} failed")
+    print("=" * 60)
+    
+    return failed == 0
+
+
+def run_local_tests_with_real_db():
+    """Запуск тестов с реальной БД (требует настроенной PostgreSQL)"""
+    print("\n" + "=" * 60)
+    print("🧪 RUNNING LOCAL TESTS WITH REAL DB")
+    print("=" * 60)
+    print("⚠️  Make sure PostgreSQL is running and DATABASE_URL is correct")
+    
+    try:
+        run_local_tests()  # Оригинальная функция
+    except Exception as e:
+        print(f"\n❌ Database connection failed: {e}")
+        print("   Tip: Set USE_MOCK_DB=true to use mock database")
+        return False
+    
+    return True
+
+
 def run_local_tests():
-    print("=" * 50)
-    print("RUNNING LOCAL TESTS")
-    print("=" * 50)
+    """Оригинальная функция тестов (без моков)"""
+    print("\n📝 Testing auth and validation (basic tests)...")
+    
+    correct_password = os.environ["SEO_ADMIN_PASSWORD"]
     
     # Тест 1: Без авторизации
-    print("\n📝 Test 1: GET without auth")
     event = {
         "httpMethod": "GET",
         "path": "/seo-admin",
         "headers": {}
     }
     result = handler(event, None)
-    print(f"   Status: {result['statusCode']}")
     assert result['statusCode'] == 401, f"Expected 401, got {result['statusCode']}"
-    print("   ✅ PASSED - Unauthorized request blocked")
+    print("   ✅ GET without auth - PASSED")
     
     # Тест 2: С правильной авторизацией
-    print("\n📝 Test 2: GET with correct auth")
-    correct_password = os.environ["SEO_ADMIN_PASSWORD"]
     event["headers"] = {"X-Authorization": f"Bearer {correct_password}"}
     result = handler(event, None)
-    print(f"   Status: {result['statusCode']}")
-    # Может быть 200 или 500 (если нет БД) - но не 401
     assert result['statusCode'] != 401, "Should not be 401"
-    if result['statusCode'] == 200:
-        print("   ✅ PASSED - Authorized request successful")
-    else:
-        print(f"   ⚠️  Got {result['statusCode']} (database issue expected if no DB)")
+    print(f"   ✅ GET with auth - Status: {result['statusCode']}")
     
     # Тест 3: Неверный формат токена
-    print("\n📝 Test 3: GET with wrong token format")
     event["headers"] = {"X-Authorization": "wrong-format"}
     result = handler(event, None)
-    print(f"   Status: {result['statusCode']}")
     assert result['statusCode'] == 401, f"Expected 401, got {result['statusCode']}"
-    print("   ✅ PASSED - Wrong token format rejected")
+    print("   ✅ Wrong token format - PASSED")
     
-    # Тест 4: POST /seo-admin/page без page_key
-    print("\n📝 Test 4: POST /seo-admin/page without page_key")
-    event = {
-        "httpMethod": "POST",
-        "path": "/seo-admin/page",
-        "headers": {"X-Authorization": f"Bearer {correct_password}"},
-        "body": json.dumps({"title": "Test"})
-    }
-    result = handler(event, None)
-    print(f"   Status: {result['statusCode']}")
-    # Должен вернуть 400 после добавления валидации
-    print(f"   Response: {result.get('body', '')[:100]}")
-    
-    # Тест 5: OPTIONS запрос (не требует авторизации)
-    print("\n📝 Test 5: OPTIONS request")
+    # Тест 4: OPTIONS
     event = {
         "httpMethod": "OPTIONS",
         "path": "/seo-admin",
         "headers": {}
     }
     result = handler(event, None)
-    print(f"   Status: {result['statusCode']}")
     assert result['statusCode'] == 200, f"Expected 200, got {result['statusCode']}"
     assert "Access-Control-Allow-Origin" in result.get("headers", {})
-    print("   ✅ PASSED - CORS headers present")
+    print("   ✅ OPTIONS request - PASSED")
     
-    print("\n" + "=" * 50)
-    print("LOCAL TESTS COMPLETED")
-    print("=" * 50)
+    print("\n✅ Basic auth tests passed!")
+
 
 if __name__ == "__main__":
-    try:
-        run_local_tests()
-    except AssertionError as e:
-        print(f"\n❌ TEST FAILED: {e}")
-    except Exception as e:
-        print(f"\n❌ ERROR: {e}")
-        import traceback
-        traceback.print_exc()
+    import argparse
+    
+    parser = argparse.ArgumentParser(description='Run SEO Admin API tests')
+    parser.add_argument('--real-db', action='store_true', help='Use real database instead of mock')
+    parser.add_argument('--mock', action='store_true', default=True, help='Use mock database (default)')
+    
+    args = parser.parse_args()
+    
+    if args.real_db:
+        success = run_local_tests_with_real_db()
+    else:
+        success = run_local_tests_with_mock()
+    
+    sys.exit(0 if success else 1)
