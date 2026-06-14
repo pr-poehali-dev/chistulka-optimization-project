@@ -396,7 +396,7 @@ if __name__ == "__main__":
     if not ADMIN_PASSWORD:
         print_colored("\n💡 Tip: Set password with:", Colors.CYAN)
         print_colored("   export SEO_ADMIN_PASSWORD='your-actual-password'", Colors.CYAN)
-        print_colored("   python test_production_api.py", Colors.CYAN)
+set SEO_ADMIN_PASSWORD=Magnit2412 && python test_production_api.py
     
     exit_code = main()
     sys.exit(exit_code)
