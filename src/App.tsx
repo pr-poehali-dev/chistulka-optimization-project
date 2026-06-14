@@ -13,6 +13,7 @@ import ServicePage from "./pages/ServicePage";
 import DistrictPage from "./pages/DistrictPage";
 import NotFound from "./pages/NotFound";
 import Works from "./pages/Works";
+import SeoAdmin from "./pages/SeoAdmin";
 import CookieBanner from "./components/CookieBanner";
 import { useYandexMetrika } from "./hooks/useYandexMetrika";
 import { SeoNotFound } from "./components/Seo";
@@ -31,6 +32,7 @@ function AppInner() {
         <Route path="/uslugi/:slug" element={<ServicePage />} />
         <Route path="/himchistka-:district" element={<DistrictPage />} />
         <Route path="/nashi-raboty" element={<Works />} />
+        <Route path="/admin/seo" element={<SeoAdmin />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<><SeoNotFound /><NotFound /></>} />
       </Routes>
