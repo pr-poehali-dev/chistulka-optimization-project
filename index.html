@@ -77,7 +77,75 @@
       "speakable": {
         "@type": "SpeakableSpecification",
         "cssSelector": ["h1", ".speakable"]
-      }
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Услуги химчистки",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": { "@type": "Service", "name": "Химчистка дивана" },
+            "price": "3500",
+            "priceCurrency": "RUB",
+            "priceSpecification": { "@type": "PriceSpecification", "minPrice": "3500", "priceCurrency": "RUB" }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": { "@type": "Service", "name": "Химчистка углового дивана" },
+            "price": "5500",
+            "priceCurrency": "RUB",
+            "priceSpecification": { "@type": "PriceSpecification", "minPrice": "5500", "priceCurrency": "RUB" }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": { "@type": "Service", "name": "Химчистка кресла" },
+            "price": "1500",
+            "priceCurrency": "RUB",
+            "priceSpecification": { "@type": "PriceSpecification", "minPrice": "1500", "priceCurrency": "RUB" }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": { "@type": "Service", "name": "Химчистка матраса" },
+            "price": "2500",
+            "priceCurrency": "RUB",
+            "priceSpecification": { "@type": "PriceSpecification", "minPrice": "2500", "priceCurrency": "RUB" }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": { "@type": "Service", "name": "Химчистка ковра" },
+            "price": "200",
+            "priceCurrency": "RUB",
+            "priceSpecification": { "@type": "PriceSpecification", "minPrice": "200", "priceCurrency": "RUB", "description": "цена за м²" }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": { "@type": "Service", "name": "Химчистка автосалона" },
+            "price": "4000",
+            "priceCurrency": "RUB",
+            "priceSpecification": { "@type": "PriceSpecification", "minPrice": "4000", "priceCurrency": "RUB" }
+          }
+        ]
+      },
+      "review": [
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Анна К." },
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+          "reviewBody": "Отличная химчистка дивана! Мастер приехал вовремя, всё сделал аккуратно, диван высох за 3 часа. Рекомендую!"
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Дмитрий В." },
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+          "reviewBody": "Заказывал химчистку углового дивана и двух кресел. Результат превзошёл ожидания, пятна от кофе ушли полностью."
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Марина С." },
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+          "reviewBody": "Чистили матрас после домашних животных. Запах исчез полностью, средства безопасные — ребёнок спит спокойно."
+        }
+      ]
     }
     </script>
     <script type="application/ld+json">
