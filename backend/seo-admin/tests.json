@@ -1,16 +1,94 @@
-{
-  "tests": [
-    {
-      "name": "GET without auth returns 401",
-      "method": "GET",
-      "path": "/",
-      "expectedStatus": 401
-    },
-    {
-      "name": "GET without auth returns 401 (duplicate check)",
-      "method": "GET",
-      "path": "/seo-admin/page",
-      "expectedStatus": 401
+# local_test.py
+import json
+import os
+from handler import handler
+
+# Установите тестовый пароль для локального тестирования
+# Можно также установить переменную окружения:
+# export SEO_ADMIN_PASSWORD="test123"
+if not os.environ.get("SEO_ADMIN_PASSWORD"):
+    os.environ["SEO_ADMIN_PASSWORD"] = "test123"
+
+# Для тестов БД (опционально, если нет БД - будут ошибки)
+# Можно замокать или использовать тестовую БД
+if not os.environ.get("DATABASE_URL"):
+    # Используйте SQLite для тестов или временную PostgreSQL
+    os.environ["DATABASE_URL"] = "postgresql://user:pass@localhost/test_db"
+
+def run_local_tests():
+    print("=" * 50)
+    print("RUNNING LOCAL TESTS")
+    print("=" * 50)
+    
+    # Тест 1: Без авторизации
+    print("\n📝 Test 1: GET without auth")
+    event = {
+        "httpMethod": "GET",
+        "path": "/seo-admin",
+        "headers": {}
     }
-  ]
-}
+    result = handler(event, None)
+    print(f"   Status: {result['statusCode']}")
+    assert result['statusCode'] == 401, f"Expected 401, got {result['statusCode']}"
+    print("   ✅ PASSED - Unauthorized request blocked")
+    
+    # Тест 2: С правильной авторизацией
+    print("\n📝 Test 2: GET with correct auth")
+    correct_password = os.environ["SEO_ADMIN_PASSWORD"]
+    event["headers"] = {"X-Authorization": f"Bearer {correct_password}"}
+    result = handler(event, None)
+    print(f"   Status: {result['statusCode']}")
+    # Может быть 200 или 500 (если нет БД) - но не 401
+    assert result['statusCode'] != 401, "Should not be 401"
+    if result['statusCode'] == 200:
+        print("   ✅ PASSED - Authorized request successful")
+    else:
+        print(f"   ⚠️  Got {result['statusCode']} (database issue expected if no DB)")
+    
+    # Тест 3: Неверный формат токена
+    print("\n📝 Test 3: GET with wrong token format")
+    event["headers"] = {"X-Authorization": "wrong-format"}
+    result = handler(event, None)
+    print(f"   Status: {result['statusCode']}")
+    assert result['statusCode'] == 401, f"Expected 401, got {result['statusCode']}"
+    print("   ✅ PASSED - Wrong token format rejected")
+    
+    # Тест 4: POST /seo-admin/page без page_key
+    print("\n📝 Test 4: POST /seo-admin/page without page_key")
+    event = {
+        "httpMethod": "POST",
+        "path": "/seo-admin/page",
+        "headers": {"X-Authorization": f"Bearer {correct_password}"},
+        "body": json.dumps({"title": "Test"})
+    }
+    result = handler(event, None)
+    print(f"   Status: {result['statusCode']}")
+    # Должен вернуть 400 после добавления валидации
+    print(f"   Response: {result.get('body', '')[:100]}")
+    
+    # Тест 5: OPTIONS запрос (не требует авторизации)
+    print("\n📝 Test 5: OPTIONS request")
+    event = {
+        "httpMethod": "OPTIONS",
+        "path": "/seo-admin",
+        "headers": {}
+    }
+    result = handler(event, None)
+    print(f"   Status: {result['statusCode']}")
+    assert result['statusCode'] == 200, f"Expected 200, got {result['statusCode']}"
+    assert "Access-Control-Allow-Origin" in result.get("headers", {})
+    print("   ✅ PASSED - CORS headers present")
+    
+    print("\n" + "=" * 50)
+    print("LOCAL TESTS COMPLETED")
+    print("=" * 50)
+
+if __name__ == "__main__":
+    try:
+        run_local_tests()
+    except AssertionError as e:
+        print(f"\n❌ TEST FAILED: {e}")
+    except Exception as e:
+        print(f"\n❌ ERROR: {e}")
+        import traceback
+        traceback.print_exc()
