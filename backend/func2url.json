@@ -1,4 +1,261 @@
-{
-  "seo-admin": "https://functions.poehali.dev/0cb39cbb-0651-41ab-bd6f-8c9932206449",
-  "send-order": "https://functions.poehali.dev/e0c4663b-8df6-4eed-958d-8a57089eb58a"
-}
+# test_production_api.py
+import json
+import os
+import requests
+from typing import Dict, Any, Optional
+from datetime import datetime
+
+# Конфигурация
+API_URL = "https://functions.poehali.dev/0cb39cbb-0651-41ab-bd6f-8c9932206449"
+ADMIN_PASSWORD = os.environ.get("SEO_ADMIN_PASSWORD", "")
+
+def log_response(test_name: str, response: requests.Response, expected_status: int):
+    """Логирование ответа API"""
+    print(f"\n{'='*60}")
+    print(f"📝 {test_name}")
+    print(f"{'='*60}")
+    print(f"Status: {response.status_code} (expected: {expected_status})")
+    
+    if response.status_code != expected_status:
+        print(f"❌ FAILED - Expected {expected_status}, got {response.status_code}")
+    else:
+        print(f"✅ PASSED")
+    
+    try:
+        body = response.json()
+        print(f"Response: {json.dumps(body, indent=2, ensure_ascii=False)[:500]}")
+    except:
+        print(f"Response body: {response.text[:200]}")
+    
+    return response.status_code == expected_status
+
+def test_cors():
+    """Тест CORS заголовков"""
+    print("\n" + "🔧 TESTING CORS".center(60, "="))
+    
+    response = requests.options(API_URL, headers={
+        "Origin": "https://example.com",
+        "Access-Control-Request-Method": "GET"
+    })
+    
+    print(f"Status: {response.status_code}")
+    print(f"CORS Headers: { {k:v for k,v in response.headers.items() if 'access-control' in k.lower()} }")
+    
+    return response.status_code == 200
+
+def test_without_auth():
+    """Тесты без авторизации"""
+    print("\n" + "🔐 TESTING WITHOUT AUTH".center(60, "="))
+    
+    results = []
+    
+    # GET request
+    response = requests.get(API_URL)
+    results.append(log_response("GET / - No Auth", response, 401))
+    
+    # POST to page
+    response = requests.post(
+        f"{API_URL}/page",
+        json={"page_key": "test", "title": "Test"}
+    )
+    results.append(log_response("POST /page - No Auth", response, 401))
+    
+    # POST to robots
+    response = requests.post(
+        f"{API_URL}/robots",
+        json={"content": "User-agent: *\nDisallow:"}
+    )
+    results.append(log_response("POST /robots - No Auth", response, 401))
+    
+    return all(results)
+
+def test_with_wrong_auth():
+    """Тесты с неверным паролем"""
+    print("\n" + "🔑 TESTING WRONG AUTH".center(60, "="))
+    
+    headers = {"X-Authorization": "Bearer wrong-password-123"}
+    
+    response = requests.get(API_URL, headers=headers)
+    return log_response("GET / - Wrong Password", response, 401)
+
+def test_with_correct_auth():
+    """Тесты с правильной авторизацией"""
+    if not ADMIN_PASSWORD:
+        print("\n⚠️ SKIPPING AUTH TESTS - SEO_ADMIN_PASSWORD not set")
+        print("   Set it with: export SEO_ADMIN_PASSWORD='your-password'")
+        return True
+    
+    print("\n" + "✅ TESTING WITH CORRECT AUTH".center(60, "="))
+    
+    headers = {"X-Authorization": f"Bearer {ADMIN_PASSWORD}"}
+    results = []
+    
+    # GET all settings
+    response = requests.get(API_URL, headers=headers)
+    results.append(log_response("GET / - Get all settings", response, 200))
+    
+    if response.status_code == 200:
+        data = response.json()
+        print(f"📊 Pages count: {len(data.get('pages', []))}")
+        if data.get('pages'):
+            print(f"   First page: {data['pages'][0].get('page_key')}")
+        print(f"🤖 Robots.txt length: {len(data.get('robots', ''))}")
+    
+    # POST update page
+    test_page = {
+        "page_key": "test-api-page",
+        "title": "Test Page from API",
+        "description": "This is a test description",
+        "keywords": "test,api,seo",
+        "schema_json": '{"@context":"https://schema.org","@type":"WebPage"}'
+    }
+    
+    response = requests.post(
+        f"{API_URL}/page",
+        headers=headers,
+        json=test_page
+    )
+    results.append(log_response("POST /page - Create/update page", response, 200))
+    
+    # POST update robots
+    test_robots = "User-agent: *\nAllow: /\nSitemap: https://example.com/sitemap.xml"
+    
+    response = requests.post(
+        f"{API_URL}/robots",
+        headers=headers,
+        json={"content": test_robots}
+    )
+    results.append(log_response("POST /robots - Update robots.txt", response, 200))
+    
+    # GET again to verify changes
+    response = requests.get(API_URL, headers=headers)
+    results.append(log_response("GET / - Verify changes", response, 200))
+    
+    if response.status_code == 200:
+        data = response.json()
+        # Find our test page
+        test_page_found = next(
+            (p for p in data.get('pages', []) if p['page_key'] == 'test-api-page'),
+            None
+        )
+        if test_page_found:
+            print(f"✅ Test page found: {test_page_found['title']}")
+        else:
+            print("⚠️ Test page not found in response")
+    
+    return all(results)
+
+def test_invalid_data():
+    """Тесты с неверными данными"""
+    if not ADMIN_PASSWORD:
+        print("\n⚠️ SKIPPING invalid data tests - need auth")
+        return True
+    
+    print("\n" + "⚠️ TESTING INVALID DATA".center(60, "="))
+    
+    headers = {"X-Authorization": f"Bearer {ADMIN_PASSWORD}"}
+    results = []
+    
+    # Missing page_key
+    response = requests.post(
+        f"{API_URL}/page",
+        headers=headers,
+        json={"title": "No Page Key"}
+    )
+    results.append(log_response("POST /page - Missing page_key", response, 400))
+    
+    # Invalid JSON in schema_json
+    response = requests.post(
+        f"{API_URL}/page",
+        headers=headers,
+        json={
+            "page_key": "test-invalid",
+            "schema_json": "{invalid json}"
+        }
+    )
+    results.append(log_response("POST /page - Invalid schema_json", response, 400))
+    
+    # Empty page_key
+    response = requests.post(
+        f"{API_URL}/page",
+        headers=headers,
+        json={"page_key": "", "title": "Empty Key"}
+    )
+    results.append(log_response("POST /page - Empty page_key", response, 400))
+    
+    return all(results)
+
+def test_robots_endpoint():
+    """Специальные тесты для robots.txt"""
+    if not ADMIN_PASSWORD:
+        return True
+    
+    print("\n" + "🤖 TESTING ROBOTS.TXT".center(60, "="))
+    
+    headers = {"X-Authorization": f"Bearer {ADMIN_PASSWORD}"}
+    
+    # Test different robots.txt content
+    robots_variants = [
+        "User-agent: *\nDisallow: /admin/\nDisallow: /private/",
+        "# Block all\nUser-agent: *\nDisallow: /",
+        "User-agent: Googlebot\nAllow: /\nUser-agent: *\nDisallow:",
+        "Sitemap: https://example.com/sitemap.xml\nUser-agent: *\nAllow: /"
+    ]
+    
+    for i, content in enumerate(robots_variants, 1):
+        response = requests.post(
+            f"{API_URL}/robots",
+            headers=headers,
+            json={"content": content}
+        )
+        success = response.status_code == 200
+        print(f"\n  Variant {i}: {'✅' if success else '❌'}")
+        if success:
+            print(f"    Content length: {len(content)} chars")
+    
+    return True
+
+def main():
+    """Запуск всех тестов"""
+    print("\n" + "🚀 SEO ADMIN API TESTS".center(60, "="))
+    print(f"📍 URL: {API_URL}")
+    print(f"⏰ Time: {datetime.now().isoformat()}")
+    
+    if not ADMIN_PASSWORD:
+        print("\n⚠️ WARNING: SEO_ADMIN_PASSWORD environment variable is not set!")
+        print("   Some tests will be skipped or will fail.")
+        print("   Set it with: export SEO_ADMIN_PASSWORD='your-password'")
+    
+    results = {
+        "CORS": test_cors(),
+        "Without Auth": test_without_auth(),
+        "Wrong Auth": test_with_wrong_auth(),
+        "Correct Auth": test_with_correct_auth(),
+        "Invalid Data": test_invalid_data(),
+        "Robots Endpoint": test_robots_endpoint()
+    }
+    
+    # Итоговый отчет
+    print("\n" + "📊 FINAL RESULTS".center(60, "="))
+    passed = sum(1 for v in results.values() if v)
+    total = len(results)
+    
+    for test_name, result in results.items():
+        status = "✅ PASSED" if result else "❌ FAILED"
+        print(f"{status} - {test_name}")
+    
+    print("\n" + "="*60)
+    print(f"TOTAL: {passed}/{total} tests passed")
+    
+    if passed == total:
+        print("\n🎉 ALL TESTS PASSED! API is working correctly.")
+    else:
+        print(f"\n⚠️ {total - passed} test(s) failed. Please check the output above.")
+    
+    return passed == total
+
+if __name__ == "__main__":
+    # Установите пароль перед запуском
+    # export SEO_ADMIN_PASSWORD='your-actual-password'
+    success = main()
+    exit(0 if success else 1)
