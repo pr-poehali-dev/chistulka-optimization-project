@@ -1,17 +1,151 @@
 {
   "tests": [
     {
-      "name": "OPTIONS preflight",
+      "name": "OPTIONS preflight - CORS",
       "method": "OPTIONS",
       "path": "/",
-      "expectedStatus": 200
+      "expectedStatus": 200,
+      "description": "Проверка CORS preflight запроса"
+    },
+    {
+      "name": "GET not allowed - returns 405",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 405,
+      "description": "Только POST разрешен"
     },
     {
       "name": "Missing fields returns 400",
       "method": "POST",
       "path": "/",
       "body": {"name": "", "phone": ""},
-      "expectedStatus": 400
+      "expectedStatus": 400,
+      "description": "Пустые поля имени и телефона"
+    },
+    {
+      "name": "Missing name returns 400",
+      "method": "POST",
+      "path": "/",
+      "body": {"phone": "+7 918 123-45-67"},
+      "expectedStatus": 400,
+      "description": "Отсутствует имя"
+    },
+    {
+      "name": "Missing phone returns 400",
+      "method": "POST",
+      "path": "/",
+      "body": {"name": "Иван Петров"},
+      "expectedStatus": 400,
+      "description": "Отсутствует телефон"
+    },
+    {
+      "name": "Invalid phone format returns 400",
+      "method": "POST",
+      "path": "/",
+      "body": {"name": "Иван", "phone": "invalid"},
+      "expectedStatus": 400,
+      "description": "Неверный формат телефона"
+    },
+    {
+      "name": "Valid request with minimal data returns 200",
+      "method": "POST",
+      "path": "/",
+      "body": {"name": "Тест Тестов", "phone": "+7 918 123-45-67"},
+      "expectedStatus": 200,
+      "description": "Минимальные корректные данные"
+    },
+    {
+      "name": "Valid request with all fields returns 200",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "name": "Иван Петров",
+        "phone": "+7 (918) 968-28-82",
+        "service": "Химчистка дивана",
+        "comment": "Позвонить после 18:00, нужно срочно"
+      },
+      "expectedStatus": 200,
+      "description": "Полные данные с услугой и комментарием"
+    },
+    {
+      "name": "Valid request with different phone format returns 200",
+      "method": "POST",
+      "path": "/",
+      "body": {"name": "Мария", "phone": "89189682882"},
+      "expectedStatus": 200,
+      "description": "Телефон в формате 10 цифр"
+    },
+    {
+      "name": "Valid request with international format returns 200",
+      "method": "POST",
+      "path": "/",
+      "body": {"name": "Джон", "phone": "+7 918 968-28-82"},
+      "expectedStatus": 200,
+      "description": "Телефон в международном формате"
+    },
+    {
+      "name": "Very long name returns 400",
+      "method": "POST",
+      "path": "/",
+      "body": {"name": "A" * 101, "phone": "+7 918 123-45-67"},
+      "expectedStatus": 400,
+      "description": "Слишком длинное имя (более 100 символов)"
+    },
+    {
+      "name": "SQL injection attempt - name",
+      "method": "POST",
+      "path": "/",
+      "body": {"name": "'; DROP TABLE users; --", "phone": "+7 918 123-45-67"},
+      "expectedStatus": 200,
+      "description": "Проверка защиты от SQL инъекций (должно экранироваться)"
+    },
+    {
+      "name": "XSS attempt - name",
+      "method": "POST",
+      "path": "/",
+      "body": {"name": "<script>alert('XSS')</script>", "phone": "+7 918 123-45-67"},
+      "expectedStatus": 200,
+      "description": "Проверка защиты от XSS (должно экранироваться)"
+    },
+    {
+      "name": "Empty JSON body returns 400",
+      "method": "POST",
+      "path": "/",
+      "body": "",
+      "expectedStatus": 400,
+      "description": "Пустое тело запроса"
+    },
+    {
+      "name": "Invalid JSON returns 400",
+      "method": "POST",
+      "path": "/",
+      "body": "{invalid json}",
+      "expectedStatus": 400,
+      "description": "Невалидный JSON"
+    },
+    {
+      "name": "Phone with spaces only returns 400",
+      "method": "POST",
+      "path": "/",
+      "body": {"name": "Тест", "phone": "   "},
+      "expectedStatus": 400,
+      "description": "Телефон только из пробелов"
+    },
+    {
+      "name": "Russian phone format returns 200",
+      "method": "POST",
+      "path": "/",
+      "body": {"name": "Анна", "phone": "8-918-968-28-82"},
+      "expectedStatus": 200,
+      "description": "Телефон в российском формате с дефисами"
+    },
+    {
+      "name": "Phone with parentheses returns 200",
+      "method": "POST",
+      "path": "/",
+      "body": {"name": "Ольга", "phone": "+7 (918) 968-28-82"},
+      "expectedStatus": 200,
+      "description": "Телефон со скобками"
     }
   ]
 }
