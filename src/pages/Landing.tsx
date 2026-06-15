@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Icon from "@/components/ui/icon";
 import { ymGoal } from "@/hooks/useYandexMetrika";
+import { WORKS } from "@/data/works";
 
 const FORM_URL = "https://functions.poehali.dev/e0c4663b-8df6-4eed-958d-8a57089eb58a";
 const PHONE = "+79189682882";
@@ -27,6 +28,41 @@ const REVIEWS = [
   { name: "Дмитрий В.", text: "Чистили угловой диван и два кресла. Пятна от кофе ушли полностью, запаха нет.", stars: 5 },
   { name: "Марина С.", text: "Матрас после домашних животных — запах исчез полностью, средства безопасные.", stars: 5 },
 ];
+
+function WorkCard({ work }: { work: (typeof WORKS)[0] }) {
+  const [showAfter, setShowAfter] = useState(false);
+  const hasBoth = work.beforeImg !== work.afterImg;
+  return (
+    <div className="rounded-2xl overflow-hidden shadow-sm" style={{ border: "1px solid var(--border)" }}>
+      <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
+        <img
+          src={showAfter ? work.afterImg : work.beforeImg}
+          alt={work.title}
+          className="w-full h-full object-cover transition-opacity duration-300"
+        />
+        <div className="absolute top-3 left-3">
+          <span className="text-xs font-bold px-2.5 py-1 rounded-full" style={{ background: showAfter ? "var(--teal)" : "#e53e3e", color: "white" }}>
+            {showAfter ? "После" : "До"}
+          </span>
+        </div>
+        {hasBoth && (
+          <button
+            onClick={() => setShowAfter((v) => !v)}
+            className="absolute bottom-3 right-3 text-xs font-semibold px-3 py-1.5 rounded-full shadow transition-all hover:opacity-90"
+            style={{ background: "white", color: "var(--dark)" }}
+          >
+            {showAfter ? "← До" : "После →"}
+          </button>
+        )}
+      </div>
+      <div className="p-4">
+        <div className="text-xs font-semibold mb-1" style={{ color: "var(--teal)" }}>{work.categoryLabel}</div>
+        <div className="font-semibold text-sm mb-1" style={{ color: "var(--dark)" }}>{work.title}</div>
+        <div className="text-xs" style={{ color: "var(--gray)" }}>{work.result}</div>
+      </div>
+    </div>
+  );
+}
 
 function Timer() {
   const [time, setTime] = useState({ h: 23, m: 59, s: 59 });
@@ -255,6 +291,22 @@ export default function Landing() {
                 <div className="font-semibold mb-1" style={{ color: "var(--dark)" }}>{step.title}</div>
                 <p className="text-xs leading-relaxed" style={{ color: "var(--gray)" }}>{step.text}</p>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Наши работы — до/после */}
+      <section className="py-12 bg-white">
+        <div className="max-w-5xl mx-auto px-4">
+          <div className="text-center mb-8">
+            <span className="section-tag">Наши работы</span>
+            <h2 className="font-oswald font-bold text-2xl md:text-3xl mt-3" style={{ color: "var(--dark)" }}>Результаты до и после</h2>
+            <p className="text-sm mt-2" style={{ color: "var(--gray)" }}>Реальные фото наших клиентов — без фотошопа</p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {WORKS.slice(0, 6).map((work) => (
+              <WorkCard key={work.id} work={work} />
             ))}
           </div>
         </div>
