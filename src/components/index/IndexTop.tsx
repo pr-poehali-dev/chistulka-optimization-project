@@ -408,6 +408,9 @@ export function Calculator() {
                 <Icon name="Info" size={15} style={{ color: "#c9a800" }} />
                 <span className="text-xs" style={{ color: "#7a6200" }}>Скидка 10% на первый заказ!</span>
               </div>
+              <p className="text-xs text-center" style={{ color: "var(--gray)" }}>
+                * Цены справочные. Точную стоимость назовёт мастер при осмотре — бесплатно.
+              </p>
             </div>
           </div>
         </div>
