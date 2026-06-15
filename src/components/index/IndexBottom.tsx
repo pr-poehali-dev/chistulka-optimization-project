@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Icon from "@/components/ui/icon";
 import { BLOG_POSTS } from "@/data/blog";
 import { DISTRICTS } from "@/data/districts";
+import { SERVICES_DATA } from "@/data/services";
 import {
   scrollToId,
   useInView,
@@ -230,7 +231,25 @@ export function Zones() {
           </div>
         </div>
 
-        <div className={`mt-10 text-center ${inView ? "animate-fade-up stagger-4" : "opacity-0"}`}>
+        <div className={`mt-10 ${inView ? "animate-fade-up stagger-3" : "opacity-0"}`}>
+          <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: "var(--gray)" }}>Популярные запросы</p>
+          <div className="flex flex-wrap gap-2">
+            {SERVICES_DATA.slice(0, 3).flatMap((s) =>
+              DISTRICTS.filter((d) => d.type === "district").map((d) => (
+                <Link
+                  key={`${s.slug}-${d.slug}`}
+                  to={`/uslugi/${s.slug}/${d.slug}`}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-all hover:border-[var(--teal)] hover:text-[var(--teal)]"
+                  style={{ borderColor: "var(--border)", color: "var(--dark)", background: "white" }}
+                >
+                  {s.shortTitle} — {d.name}
+                </Link>
+              ))
+            )}
+          </div>
+        </div>
+
+        <div className={`mt-8 text-center ${inView ? "animate-fade-up stagger-4" : "opacity-0"}`}>
           <p className="text-sm" style={{ color: "var(--gray)" }}>
             Не нашли свой район?{" "}
             <a href="tel:+79189682882" className="font-semibold" style={{ color: "var(--teal)" }}>

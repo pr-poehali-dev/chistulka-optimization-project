@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Icon from "@/components/ui/icon";
 import { SERVICES_DATA } from "@/data/services";
+import { DISTRICTS } from "@/data/districts";
 import {
   scrollToId,
   useInView,
@@ -250,9 +251,23 @@ export function Services() {
                   <h3 className="font-oswald font-bold text-lg mb-2" style={{ color: "var(--dark)" }}>{s.title}</h3>
                   <p className="text-sm leading-relaxed" style={{ color: "var(--gray)" }}>{s.desc}</p>
                   {sd ? (
-                    <Link to={`/uslugi/${sd.slug}`} className="mt-4 flex items-center gap-1.5 text-sm font-semibold transition-all hover:gap-3" style={{ color: "var(--teal)" }}>
-                      Подробнее <Icon name="ArrowRight" size={15} />
-                    </Link>
+                    <>
+                      <Link to={`/uslugi/${sd.slug}`} className="mt-4 flex items-center gap-1.5 text-sm font-semibold transition-all hover:gap-3" style={{ color: "var(--teal)" }}>
+                        Подробнее <Icon name="ArrowRight" size={15} />
+                      </Link>
+                      <div className="mt-3 flex flex-wrap gap-1.5">
+                        {DISTRICTS.slice(0, 3).map((d) => (
+                          <Link
+                            key={d.slug}
+                            to={`/uslugi/${sd.slug}/${d.slug}`}
+                            className="text-xs px-2.5 py-1 rounded-full border transition-all hover:border-[var(--teal)] hover:text-[var(--teal)]"
+                            style={{ borderColor: "var(--border)", color: "var(--gray)" }}
+                          >
+                            {d.name}
+                          </Link>
+                        ))}
+                      </div>
+                    </>
                   ) : (
                     <button onClick={() => scrollToId("contacts")} className="mt-4 flex items-center gap-1.5 text-sm font-semibold transition-all hover:gap-3" style={{ color: "var(--teal)" }}>
                       Подробнее <Icon name="ArrowRight" size={15} />
