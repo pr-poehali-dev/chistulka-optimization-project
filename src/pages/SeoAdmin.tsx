@@ -6,7 +6,6 @@ Disallow: /cookie-policy
 Disallow: /privacy
 Disallow: /hello-world/
 Disallow: /sample-page/
-Disallow: /voprosy-i-otvety-faq.html
 Host: https://arenda-chistoty.ru
 Sitemap: https://arenda-chistoty.ru/sitemap.xml
 
