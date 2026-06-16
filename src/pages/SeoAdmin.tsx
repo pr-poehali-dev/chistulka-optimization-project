@@ -91,7 +91,7 @@ const SitemapStats = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://arenda-chistoty.online/sitemap.xml")
+    fetch("https://arenda-chistoty.ru/sitemap.xml")
       .then((res) => res.text())
       .then((xml) => {
         const urls = (xml.match(/<loc>/g) || []).length;
@@ -166,7 +166,7 @@ const CheckIndexing = () => {
   const checkIndex = () => {
     setChecking(true);
     window.open(
-      "https://yandex.ru/search/?text=site:arenda-chistoty.online",
+      "https://yandex.ru/search/?text=site:arenda-chistoty.ru",
       "_blank",
     );
     setTimeout(() => setChecking(false), 1000);
@@ -436,7 +436,7 @@ export default function SeoAdmin() {
             className="text-xs px-2 py-0.5 rounded-full"
             style={{ background: "rgba(12,184,160,0.2)", color: "var(--teal)" }}
           >
-            arenda-chistoty.online
+            arenda-chistoty.ru
           </span>
           <div className="flex items-center gap-2 ml-2">
             <CheckIndexing />
@@ -635,7 +635,7 @@ export default function SeoAdmin() {
                         </span>
                       )}
                       <a
-                        href={`https://arenda-chistoty.online${selectedPage.page_key}`}
+                        href={`https://arenda-chistoty.ru${selectedPage.page_key}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg transition-all hover:bg-white/10 hover:scale-105"
@@ -714,7 +714,7 @@ export default function SeoAdmin() {
                           className="text-xs mt-0.5"
                           style={{ color: "#0d904f" }}
                         >
-                          arenda-chistoty.online{selectedPage.page_key}
+                          arenda-chistoty.ru{selectedPage.page_key}
                         </p>
                         {form.description && (
                           <p
@@ -932,7 +932,7 @@ export default function SeoAdmin() {
                   </span>
                 )}
                 <a
-                  href="https://arenda-chistoty.online/robots.txt"
+                  href="https://arenda-chistoty.ru/robots.txt"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg transition-all hover:bg-white/5 hover:scale-105"
@@ -984,7 +984,7 @@ export default function SeoAdmin() {
 
               <div className="mt-6 space-y-3">
                 <a
-                  href="https://arenda-chistoty.online/sitemap.xml"
+                  href="https://arenda-chistoty.ru/sitemap.xml"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-between px-4 py-3 rounded-xl transition-all hover:opacity-80 hover:scale-[1.02]"
@@ -1008,7 +1008,7 @@ export default function SeoAdmin() {
                   />
                 </a>
                 <a
-                  href="https://arenda-chistoty.online/robots.txt"
+                  href="https://arenda-chistoty.ru/robots.txt"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-between px-4 py-3 rounded-xl transition-all hover:opacity-80 hover:scale-[1.02]"
@@ -1070,7 +1070,7 @@ export default function SeoAdmin() {
                     Google Search Console
                   </a>
                   <a
-                    href="https://yandex.ru/search/?text=site:arenda-chistoty.online"
+                    href="https://yandex.ru/search/?text=site:arenda-chistoty.ru"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 text-xs transition-all hover:opacity-80 hover:scale-[1.02]"
