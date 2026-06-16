@@ -1,4 +1,9 @@
-User-agent: *
+-- ============================================
+-- ИСПРАВЛЕННЫЙ ROBOTS.TXT (БЕЗ НЕИЗВЕСТНЫХ ДИРЕКТИВ)
+-- ============================================
+
+SELECT * FROM update_robots(
+    'User-agent: *
 Allow: /
 Allow: /uslugi/
 Allow: /nashi-raboty
@@ -7,8 +12,6 @@ Allow: /akcii
 Allow: /kontakty
 Allow: /price
 Allow: /otzyvy
-Allow: /images/
-Allow: /wp-content/uploads/
 
 Disallow: /cookie-policy
 Disallow: /privacy
@@ -17,14 +20,11 @@ Disallow: /sample-page/
 Disallow: /voprosy-i-otvety-faq.html
 Disallow: /wp-admin/
 Disallow: /wp-includes/
-Disallow: /tag/
-Disallow: /feed/
 
 Host: https://arenda-chistoty.ru
 Sitemap: https://arenda-chistoty.ru/sitemap.xml
 Sitemap: https://arenda-chistoty.ru/sitemap-index.xml
 
-# Yandex
 User-agent: Yandex
 Allow: /
 Allow: /uslugi/
@@ -32,9 +32,7 @@ Allow: /nashi-raboty
 Allow: /blog/
 Disallow: /wp-admin/
 Disallow: /wp-includes/
-Crawl-delay: 2
 
-# Google
 User-agent: Googlebot
 Allow: /
 Allow: /uslugi/
@@ -43,19 +41,16 @@ Allow: /blog/
 Disallow: /wp-admin/
 Disallow: /wp-includes/
 
-# Мобильные боты
 User-agent: YandexMobileBot
 Allow: /
 Disallow: /wp-admin/
 Disallow: /wp-includes/
-Crawl-delay: 3
 
 User-agent: Googlebot-Mobile
 Allow: /
 Disallow: /wp-admin/
 Disallow: /wp-includes/
 
-# Медиа боты
 User-agent: Googlebot-Image
 Allow: /images/
 Allow: /wp-content/uploads/
@@ -64,24 +59,21 @@ Disallow: /wp-admin/
 User-agent: YandexImages
 Allow: /images/
 Allow: /wp-content/uploads/
-Disallow: /wp-admin/
+Disallow: /wp-admin/',
+    'admin_fixed'
+);
 
-# Социальные сети
-User-agent: FacebookBot
-Allow: /
-Allow: /blog/
-Allow: /nashi-raboty
+-- ============================================
+-- ПРОВЕРКА НА НЕИЗВЕСТНЫЕ ДИРЕКТИВЫ
+-- ============================================
 
-User-agent: TelegramBot
-Allow: /
-Allow: /blog/
+SELECT * FROM validate_robots_advanced(
+    (SELECT content FROM seo_robots WHERE is_active = TRUE ORDER BY id DESC LIMIT 1)
+)
+WHERE is_valid = FALSE;
 
-# Новостные боты
-User-agent: YandexNews
-Allow: /
-Allow: /blog/
-Crawl-delay: 1
+-- ============================================
+-- ПОЛУЧИТЬ ИСПРАВЛЕННУЮ ВЕРСИЮ
+-- ============================================
 
-User-agent: Googlebot-News
-Allow: /
-Allow: /blog/
+SELECT content FROM seo_robots WHERE is_active = TRUE ORDER BY id DESC LIMIT 1;
