@@ -15,23 +15,34 @@
     <meta name="yandex:contact-phone" content="+79189682882"/>
     <meta name="yandex:work-hours" content="09:00-22:00"/>
     <meta name="format-detection" content="telephone=yes"/>
+    
+    <!-- Шрифты с display=swap -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;900&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <meta name="author" content="Аренда Чистоты"/>
-    <link rel="icon" type="image/jpg" href="https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/files/favicon-1781377554013.jpg">
+    
+    <!-- Новый фавикон (SVG) -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    
+    <!-- Open Graph с новым доменом -->
     <meta property="og:type" content="website"/>
     <meta property="og:locale" content="ru_RU"/>
-    <meta property="og:url" content="https://arenda-chistoty.online/"/>
+    <meta property="og:url" content="https://arenda-chistoty.ru/"/>
     <meta property="og:site_name" content="Аренда Чистоты"/>
     <meta property="og:title" content="Химчистка мебели в Краснодаре — Аренда Чистоты">
     <meta property="og:description" content="Химчистка диванов, кресел, матрасов и ковров в Краснодаре с выездом на дом. Сушка за 2–4 часа, безопасные средства. ☎ 8 918 968-28-82">
     <meta property="og:image" content="https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/files/1f8a12d2-02a6-452c-a1cb-4fa8f342c646.jpg">
+    
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image"/>
     <meta name="twitter:title" content="Химчистка мебели в Краснодаре — Аренда Чистоты"/>
     <meta name="twitter:description" content="Химчистка диванов, кресел, матрасов и ковров с выездом на дом. Сушка за 2–4 часа."/>
     <meta name="twitter:image" content="https://cdn.poehali.dev/projects/4c38c16c-b9b4-483b-8a85-5827a4cc2141/files/1f8a12d2-02a6-452c-a1cb-4fa8f342c646.jpg">
-
+    
+    <!-- Каноническая ссылка -->
+    <link rel="canonical" href="https://arenda-chistoty.ru/">
 
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
@@ -46,22 +57,16 @@
     <noscript><div><img src="https://mc.yandex.ru/watch/109765159" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
     <!-- /Yandex.Metrika counter -->
 
-    <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS COMMENT! -->
-
-    <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS COMMENT! -->
-    <script src="https://cdn.poehali.dev/intertnal/js/pp-min-2.js"></script>
-    <script src="https://cdn.poehali.dev/intertnal/js/route-min.js"></script>
-    <script src="https://cdn.poehali.dev/intertnal/js/telemetry-min.js"></script>
-    <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS COMMENT! -->
-
-    <meta name="pp-name" value="chistulka-optimization-project">
-      <script src="https://cdn.poehali.dev/intertnal/js/inspector-min.js"></script>
-  </head>
+    <!-- Основные скрипты платформы с defer (загрузка после HTML) -->
+    <script src="https://cdn.poehali.dev/intertnal/js/pp-min-2.js" defer></script>
+    <script src="https://cdn.poehali.dev/intertnal/js/route-min.js" defer></script>
+    <!-- telemetry-min.js удалён (лишний) -->
+    <!-- inspector-min.js удалён (инструмент разработчика) -->
+</head>
 
 <body>
 <div id="root"></div>
-<script type="module" src="/src/main.tsx"></script>
-
-
+<!-- Основной бандл React – грузим асинхронно после всего -->
+<script type="module" src="/src/main.tsx" defer></script>
 </body>
 </html>
